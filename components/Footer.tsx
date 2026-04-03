@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { Link as LinkIcon, Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
+import Logo from "./Logo";
 
 const NAV_LINKS = [
   { key: "howItWorks", href: "#how-it-works" },
@@ -23,9 +24,7 @@ export default function Footer() {
           {/* Logo & tagline */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-                <LinkIcon className="h-4 w-4 text-white" />
-              </div>
+              <Logo size={32} />
               <span className="text-2xl font-bold text-primary">EasyLaces</span>
             </div>
             <p className="text-base text-gray-500">
