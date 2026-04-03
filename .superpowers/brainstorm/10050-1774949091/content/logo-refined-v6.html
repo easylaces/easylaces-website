@@ -1,0 +1,131 @@
+<h2>Logo A blu — lacci corti, icona più grande</h2>
+<p class="subtitle">Tre livelli di regolazione per trovare la proporzione giusta.</p>
+
+<style>
+  .logo-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-sq {
+    width: 160px;
+    height: 160px;
+    border-radius: 6px;
+    background: #2563EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: #1A1A1A;
+  }
+</style>
+
+<div class="cards">
+  <!-- A: Lacci un po' più corti, logo un po' più grande -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:260px;background:#f5f5f5;">
+      <div class="logo-showcase">
+        <div class="logo-sq">
+          <svg width="140" height="56" viewBox="0 0 140 56" fill="none">
+            <line x1="6" y1="20" x2="32" y2="20" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+            <line x1="6" y1="36" x2="32" y2="36" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+            <rect x="32" y="8" width="76" height="40" rx="3.5" fill="white"/>
+            <rect x="41" y="14" width="20" height="28" rx="2.5" fill="#2563EB"/>
+            <rect x="79" y="14" width="20" height="28" rx="2.5" fill="#2563EB"/>
+            <line x1="108" y1="20" x2="134" y2="20" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+            <line x1="108" y1="36" x2="134" y2="36" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Leggero</h3>
+      <p>Lacci accorciati, clip ingrandita. Buon respiro sui bordi.</p>
+    </div>
+  </div>
+
+  <!-- B: Lacci ancora più corti, logo più grande -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:260px;background:#f5f5f5;">
+      <div class="logo-showcase">
+        <div class="logo-sq">
+          <svg width="148" height="62" viewBox="0 0 148 62" fill="none">
+            <line x1="4" y1="22" x2="26" y2="22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="4" y1="40" x2="26" y2="40" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="26" y="6" width="96" height="50" rx="4" fill="white"/>
+            <rect x="37" y="14" width="24" height="34" rx="3" fill="#2563EB"/>
+            <rect x="87" y="14" width="24" height="34" rx="3" fill="#2563EB"/>
+            <line x1="122" y1="22" x2="144" y2="22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="122" y1="40" x2="144" y2="40" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Medio</h3>
+      <p>Clip grande e prominente, lacci corti. Riempie bene il quadrato.</p>
+    </div>
+  </div>
+
+  <!-- C: Lacci minimi, logo che riempie quasi tutto -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:260px;background:#f5f5f5;">
+      <div class="logo-showcase">
+        <div class="logo-sq">
+          <svg width="152" height="68" viewBox="0 0 152 68" fill="none">
+            <line x1="4" y1="24" x2="20" y2="24" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="4" y1="44" x2="20" y2="44" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="20" y="4" width="112" height="60" rx="4" fill="white"/>
+            <rect x="32" y="13" width="28" height="42" rx="3" fill="#2563EB"/>
+            <rect x="92" y="13" width="28" height="42" rx="3" fill="#2563EB"/>
+            <line x1="132" y1="24" x2="148" y2="24" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="132" y1="44" x2="148" y2="44" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Pieno</h3>
+      <p>Lacci minimi, clip che riempie quasi tutto. Massimo impatto, quasi a filo.</p>
+    </div>
+  </div>
+</div>
+
+<h2 style="margin-top:40px;">Anteprima header</h2>
+<p class="subtitle">Le tre varianti a 36px nell'header.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Header — A, B, C a confronto</div>
+  <div class="mockup-body" style="padding:16px 24px;display:flex;align-items:center;justify-content:space-between;background:#FDF6EE;">
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:4px;background:#2563EB;display:flex;align-items:center;justify-content:center;">
+          <svg width="30" height="12" viewBox="0 0 140 56" fill="none"><line x1="6" y1="20" x2="32" y2="20" stroke="white" stroke-width="3.2" stroke-linecap="round"/><line x1="6" y1="36" x2="32" y2="36" stroke="white" stroke-width="3.2" stroke-linecap="round"/><rect x="32" y="8" width="76" height="40" rx="3.5" fill="white"/><rect x="41" y="14" width="20" height="28" rx="2.5" fill="#2563EB"/><rect x="79" y="14" width="20" height="28" rx="2.5" fill="#2563EB"/><line x1="108" y1="20" x2="134" y2="20" stroke="white" stroke-width="3.2" stroke-linecap="round"/><line x1="108" y1="36" x2="134" y2="36" stroke="white" stroke-width="3.2" stroke-linecap="round"/></svg>
+        </div>
+        <span style="font-size:11px;color:#999;">A</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:4px;background:#2563EB;display:flex;align-items:center;justify-content:center;">
+          <svg width="30" height="13" viewBox="0 0 148 62" fill="none"><line x1="4" y1="22" x2="26" y2="22" stroke="white" stroke-width="3.5" stroke-linecap="round"/><line x1="4" y1="40" x2="26" y2="40" stroke="white" stroke-width="3.5" stroke-linecap="round"/><rect x="26" y="6" width="96" height="50" rx="4" fill="white"/><rect x="37" y="14" width="24" height="34" rx="3" fill="#2563EB"/><rect x="87" y="14" width="24" height="34" rx="3" fill="#2563EB"/><line x1="122" y1="22" x2="144" y2="22" stroke="white" stroke-width="3.5" stroke-linecap="round"/><line x1="122" y1="40" x2="144" y2="40" stroke="white" stroke-width="3.5" stroke-linecap="round"/></svg>
+        </div>
+        <span style="font-size:11px;color:#999;">B</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;border-radius:4px;background:#2563EB;display:flex;align-items:center;justify-content:center;">
+          <svg width="30" height="14" viewBox="0 0 152 68" fill="none"><line x1="4" y1="24" x2="20" y2="24" stroke="white" stroke-width="3.5" stroke-linecap="round"/><line x1="4" y1="44" x2="20" y2="44" stroke="white" stroke-width="3.5" stroke-linecap="round"/><rect x="20" y="4" width="112" height="60" rx="4" fill="white"/><rect x="32" y="13" width="28" height="42" rx="3" fill="#2563EB"/><rect x="92" y="13" width="28" height="42" rx="3" fill="#2563EB"/><line x1="132" y1="24" x2="148" y2="24" stroke="white" stroke-width="3.5" stroke-linecap="round"/><line x1="132" y1="44" x2="148" y2="44" stroke="white" stroke-width="3.5" stroke-linecap="round"/></svg>
+        </div>
+        <span style="font-size:11px;color:#999;">C</span>
+      </div>
+      <span style="font-family:Inter,sans-serif;font-weight:800;font-size:22px;color:#1A1A1A;letter-spacing:-0.5px;margin-left:10px;">EasyLaces</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+{"type":"server-started","port":59546,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:59546","screen_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content","state_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/state"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-concept.html"}
+{"source":"user-event","type":"click","text":"C — Gli Occhielli\n      Vista frontale degli occhielli della scarpa con i lacci che li attraversano. Riconoscibile, diretto, iconico.","choice":"c","id":null,"timestamp":1774914369511}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-eyelet-v2.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-size-v3.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-clip-v4.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-clip-rotated-v5.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-clip-stretch-v6.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-clip-inner-stretch-v7.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-texture-v8.html"}
+{"source":"user-event","type":"click","text":"C — Puntinata (stipple)\n      Micro-punti regolari che creano una texture uniforme. Ricorda il materiale della clip nella foto.","choice":"c","id":null,"timestamp":1774915120516}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-wood-texture-v9.html"}
+{"source":"user-event","type":"click","text":"A — Venature sabbia sottili\n      Linee sabbia delicate sul blu, grana fine. Elegante e discreto.","choice":"a","id":null,"timestamp":1774915215902}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-texture-crossgrain-v10.html"}
+{"source":"user-event","type":"click","text":"C — Trama fitta tipo tela\n      Incrocio più stretto, effetto canvas/lino. Ricorda la texture del tessuto dei lacci.","choice":"c","id":null,"timestamp":1774915289981}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/icon-gradient-v11.html"}
+{"source":"user-event","type":"click","text":"B — Indaco → Azzurro zucchero\n      Da indaco profondo ad azzurro zucchero filato. Transizione più ampia, fresco e luminoso.","choice":"b","id":null,"timestamp":1774915398217}
+{"source":"user-event","type":"click","text":"A — Navy → Azzurro pastello\n      Da blu navy intenso ad azzurro morbido. Le fessure seguono il gradiente. Contrasto medio.","choice":"a","id":null,"timestamp":1774915413957}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/logo-minimal-colors-v1.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/7950-1774914130/content/logo-iconic-v1.html"}
+{"type":"server-stopped","reason":"idle timeout"}

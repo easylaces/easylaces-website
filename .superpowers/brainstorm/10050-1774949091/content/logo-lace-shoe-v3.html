@@ -1,0 +1,210 @@
+<h2>Clip con lacci da scarpa — minimal</h2>
+<p class="subtitle">La clip al centro con lacci che escono a V verso l'esterno, come su una scarpa.</p>
+
+<style>
+  .logo-showcase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .brand-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: #1A1A1A;
+  }
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 8px;
+  }
+  .variant-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-top: 6px;
+  }
+  .variant-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .variant-sm {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<div class="cards">
+  <!-- A: Lacci a V singolo -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:280px;background:#fafafa;">
+      <div class="logo-showcase">
+        <div class="logo-mark">
+          <svg width="160" height="80" viewBox="0 0 160 80" fill="none">
+            <!-- Lacci a sinistra - incrocio a V -->
+            <line x1="20" y1="18" x2="58" y2="32" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <line x1="20" y1="62" x2="58" y2="48" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <!-- Clip -->
+            <rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/>
+            <rect x="64" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <rect x="84" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <!-- Lacci a destra - incrocio a V -->
+            <line x1="102" y1="32" x2="140" y2="18" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <line x1="102" y1="48" x2="140" y2="62" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+        <div class="logo-row">
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#1A1A1A;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><line x1="102" y1="32" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">nero</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#2563EB;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#2563EB"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#2563EB"/><line x1="102" y1="32" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">blu</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#DC2626;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#DC2626"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#DC2626"/><line x1="102" y1="32" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">rosso</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:white;border:1px solid #eee;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="32" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="48" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/><rect x="64" y="30" width="12" height="20" rx="2" fill="white"/><rect x="84" y="30" width="12" height="20" rx="2" fill="white"/><line x1="102" y1="32" x2="140" y2="18" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="62" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">bianco</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — V singola</h3>
+      <p>Due lacci per lato che si aprono a V dalla clip. Come una allacciatura vista dall'alto.</p>
+    </div>
+  </div>
+
+  <!-- B: Lacci incrociati a X -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:280px;background:#fafafa;">
+      <div class="logo-showcase">
+        <div class="logo-mark">
+          <svg width="160" height="80" viewBox="0 0 160 80" fill="none">
+            <!-- Lacci incrociati a sinistra -->
+            <line x1="20" y1="18" x2="58" y2="48" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <line x1="20" y1="62" x2="58" y2="32" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <!-- Clip -->
+            <rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/>
+            <rect x="64" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <rect x="84" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <!-- Lacci incrociati a destra -->
+            <line x1="102" y1="32" x2="140" y2="62" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <line x1="102" y1="48" x2="140" y2="18" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+        <div class="logo-row">
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#1A1A1A;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><line x1="102" y1="32" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">nero</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#2563EB;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#2563EB"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#2563EB"/><line x1="102" y1="32" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">blu</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#DC2626;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="32" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#DC2626"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#DC2626"/><line x1="102" y1="32" x2="140" y2="62" stroke="white" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">rosso</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:white;border:1px solid #eee;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="20" y1="18" x2="58" y2="48" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="58" y2="32" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/><rect x="64" y="30" width="12" height="20" rx="2" fill="white"/><rect x="84" y="30" width="12" height="20" rx="2" fill="white"/><line x1="102" y1="32" x2="140" y2="62" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><line x1="102" y1="48" x2="140" y2="18" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">bianco</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — X incrociata</h3>
+      <p>Lacci che si incrociano a X da entrambi i lati della clip. Come l'allacciatura classica.</p>
+    </div>
+  </div>
+
+  <!-- C: Mix - un solo laccio per lato, diagonale -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:280px;background:#fafafa;">
+      <div class="logo-showcase">
+        <div class="logo-mark">
+          <svg width="160" height="80" viewBox="0 0 160 80" fill="none">
+            <!-- Laccio singolo per lato, diagonale opposta -->
+            <line x1="15" y1="20" x2="58" y2="34" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+            <!-- Clip -->
+            <rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/>
+            <rect x="64" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <rect x="84" y="30" width="12" height="20" rx="2" fill="#fafafa"/>
+            <!-- Laccio destro -->
+            <line x1="102" y1="46" x2="145" y2="60" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="brand-text">EasyLaces</span>
+        <div class="logo-row">
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#1A1A1A;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="15" y1="20" x2="58" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#1A1A1A"/><line x1="102" y1="46" x2="145" y2="60" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">nero</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#2563EB;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="15" y1="20" x2="58" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#2563EB"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#2563EB"/><line x1="102" y1="46" x2="145" y2="60" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">blu</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:#DC2626;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="15" y1="20" x2="58" y2="34" stroke="white" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="white"/><rect x="64" y="30" width="12" height="20" rx="2" fill="#DC2626"/><rect x="84" y="30" width="12" height="20" rx="2" fill="#DC2626"/><line x1="102" y1="46" x2="145" y2="60" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">rosso</span>
+          </div>
+          <div class="variant-box">
+            <div class="variant-sm" style="background:white;border:1px solid #eee;">
+              <svg width="42" height="20" viewBox="0 0 160 80" fill="none"><line x1="15" y1="20" x2="58" y2="34" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/><rect x="58" y="24" width="44" height="32" rx="3" fill="#1A1A1A"/><rect x="64" y="30" width="12" height="20" rx="2" fill="white"/><rect x="84" y="30" width="12" height="20" rx="2" fill="white"/><line x1="102" y1="46" x2="145" y2="60" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <span class="variant-label">bianco</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Diagonale singola</h3>
+      <p>Un solo laccio per lato, in diagonale opposta. Ultra minimal — il minimo indispensabile per dire "laccio".</p>
+    </div>
+  </div>
+</div>

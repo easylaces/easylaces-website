@@ -1,0 +1,9 @@
+{"type":"server-started","port":58329,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:58329","screen_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content","state_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/state"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-iconic-v1.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-lace-clip-v2.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-lace-shoe-v3.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-lace-parallel-v4.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-bg-square-v5.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-refined-v6.html"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/10050-1774949091/content/logo-spacing-v7.html"}
+{"type":"server-stopped","reason":"idle timeout"}

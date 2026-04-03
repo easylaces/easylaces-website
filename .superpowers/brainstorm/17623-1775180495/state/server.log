@@ -1,0 +1,3 @@
+{"type":"server-started","port":50812,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:50812","screen_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/17623-1775180495/content","state_dir":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/17623-1775180495/state"}
+{"type":"screen-added","file":"/Users/andrea/Desktop/Progect/EasyLaces/.superpowers/brainstorm/17623-1775180495/content/logo-final.html"}
+{"type":"server-stopped","reason":"idle timeout"}

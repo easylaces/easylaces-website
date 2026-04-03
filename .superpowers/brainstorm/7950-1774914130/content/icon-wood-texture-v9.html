@@ -1,0 +1,249 @@
+<h2>Texture legnosa/sabbia sul blu</h2>
+<p class="subtitle">Sfondo blu con venature e toni sabbia/marrone che creano un effetto materico naturale.</p>
+
+<style>
+  .logo-bg {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .logo-bg svg {
+    position: relative;
+    z-index: 3;
+  }
+
+  /* A: Blu con venature sabbia sottili */
+  .texture-a {
+    background: linear-gradient(135deg, #2563EB 0%, #1e56d0 50%, #2563EB 100%);
+  }
+  .texture-a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        92deg,
+        transparent,
+        transparent 3px,
+        rgba(194,168,130,0.12) 3px,
+        rgba(194,168,130,0.06) 4.5px,
+        transparent 5px
+      ),
+      repeating-linear-gradient(
+        88deg,
+        transparent,
+        transparent 7px,
+        rgba(194,168,130,0.08) 7px,
+        rgba(194,168,130,0.04) 8px,
+        transparent 9px
+      );
+    z-index: 1;
+  }
+  .texture-a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+    z-index: 1;
+  }
+
+  /* B: Blu con sovrapposizione sabbia più calda */
+  .texture-b {
+    background: linear-gradient(160deg, #2563EB 0%, #2558c9 40%, #2d5fb8 100%);
+  }
+  .texture-b::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        95deg,
+        transparent,
+        transparent 2px,
+        rgba(180,140,80,0.14) 2px,
+        rgba(180,140,80,0.07) 3.5px,
+        transparent 4px
+      ),
+      repeating-linear-gradient(
+        85deg,
+        transparent,
+        transparent 5px,
+        rgba(160,120,60,0.1) 5px,
+        rgba(160,120,60,0.05) 6.5px,
+        transparent 7px
+      ),
+      repeating-linear-gradient(
+        100deg,
+        transparent,
+        transparent 12px,
+        rgba(140,100,50,0.08) 12px,
+        rgba(140,100,50,0.04) 13px,
+        transparent 14px
+      );
+    z-index: 1;
+  }
+  .texture-b::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.3 0 0 0 0.6 0.2 0 0 0 0.4 0.1 0 0 0 0.2 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    z-index: 1;
+  }
+
+  /* C: Blu con grain marrone forte tipo legno rustico */
+  .texture-c {
+    background: linear-gradient(140deg, #2563EB 0%, #1e4fba 60%, #2a5ec0 100%);
+  }
+  .texture-c::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        93deg,
+        transparent,
+        transparent 1.5px,
+        rgba(139,90,43,0.18) 1.5px,
+        rgba(139,90,43,0.1) 2.5px,
+        transparent 3px
+      ),
+      repeating-linear-gradient(
+        87deg,
+        transparent,
+        transparent 4px,
+        rgba(160,110,50,0.12) 4px,
+        rgba(160,110,50,0.06) 5px,
+        transparent 6px
+      ),
+      repeating-linear-gradient(
+        96deg,
+        transparent,
+        transparent 9px,
+        rgba(120,80,30,0.15) 9px,
+        rgba(120,80,30,0.08) 10.5px,
+        transparent 11px
+      );
+    z-index: 1;
+  }
+  .texture-c::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.8 3' numOctaves='5' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.4 0 0 0 0.5 0.3 0 0 0 0.3 0.1 0 0 0 0.1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: soft-light;
+    z-index: 1;
+  }
+
+  /* D: Blu con tocco sabbia caldo, elegante */
+  .texture-d {
+    background: linear-gradient(150deg, #2563EB 0%, #2050b8 100%);
+  }
+  .texture-d::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        91deg,
+        transparent,
+        transparent 2.5px,
+        rgba(210,180,130,0.1) 2.5px,
+        rgba(210,180,130,0.05) 3.5px,
+        transparent 4px
+      ),
+      repeating-linear-gradient(
+        97deg,
+        transparent,
+        transparent 8px,
+        rgba(190,150,90,0.08) 8px,
+        rgba(190,150,90,0.04) 9px,
+        transparent 10px
+      );
+    z-index: 1;
+  }
+  .texture-d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(180,140,70,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(200,160,90,0.08) 0%, transparent 50%);
+    z-index: 1;
+  }
+</style>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:240px;background:#f8f4ef;">
+      <div class="logo-bg texture-a">
+        <svg width="116" height="56" viewBox="0 0 116 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="108" height="48" rx="4" fill="white"/>
+          <rect x="16" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+          <rect x="82" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Venature sabbia sottili</h3>
+      <p>Linee sabbia delicate sul blu, grana fine. Elegante e discreto.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:240px;background:#f8f4ef;">
+      <div class="logo-bg texture-b">
+        <svg width="116" height="56" viewBox="0 0 116 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="108" height="48" rx="4" fill="white"/>
+          <rect x="16" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+          <rect x="82" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Legno caldo</h3>
+      <p>Venature più evidenti con toni marroni caldi. Effetto legno naturale sul blu.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:240px;background:#f8f4ef;">
+      <div class="logo-bg texture-c">
+        <svg width="116" height="56" viewBox="0 0 116 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="108" height="48" rx="4" fill="white"/>
+          <rect x="16" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+          <rect x="82" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Legno rustico</h3>
+      <p>Grana forte, venature marcate color marrone scuro. Materico e deciso.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image" style="display:flex;align-items:center;justify-content:center;min-height:240px;background:#f8f4ef;">
+      <div class="logo-bg texture-d">
+        <svg width="116" height="56" viewBox="0 0 116 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="108" height="48" rx="4" fill="white"/>
+          <rect x="16" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+          <rect x="82" y="12" width="18" height="32" rx="2.5" fill="#2563EB"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D — Sabbia calda sfumata</h3>
+      <p>Venature sabbia sottili con aloni caldi agli angoli. Sofisticato e organico.</p>
+    </div>
+  </div>
+</div>

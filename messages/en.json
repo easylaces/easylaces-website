@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "EasyLaces Clip — Never Tie Your Shoes Again",
+    "description": "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €5.99."
+  },
+  "header": {
+    "howItWorks": "How It Works",
+    "colors": "Colors",
+    "reviews": "Reviews",
+    "findUs": "Find Us",
+    "order": "Order"
+  },
+  "hero": {
+    "headline": "Never Tie Your Shoes Again",
+    "subheadline": "The revolutionary clip that makes lacing instant. Available at Kings Avenue Mall, Paphos.",
+    "cta": "Order Now — €5.99",
+    "secondaryCta": "See How It Works"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Three simple steps to lace-free shoes",
+    "step1Title": "Clip It On",
+    "step1Desc": "Attach the EasyLaces clip to your shoe — fits any shoe type instantly.",
+    "step2Title": "Pull & Lock",
+    "step2Desc": "Pull the laces through and lock them in place with a satisfying click.",
+    "step3Title": "Done! Walk Away",
+    "step3Desc": "No knots, no hassle. Your shoes are secure and ready to go."
+  },
+  "product": {
+    "title": "Choose Your Color",
+    "subtitle": "One clip, many styles",
+    "name": "EasyLaces Clip",
+    "price": "€5.99",
+    "specs": "Universal fit • Durable polymer • Washable • Fits all shoe types",
+    "addToOrder": "Add to Order"
+  },
+  "reviews": {
+    "title": "What Our Customers Say",
+    "subtitle": "Join hundreds of happy customers in Paphos",
+    "verified": "Verified Purchase"
+  },
+  "location": {
+    "title": "Pick Up Your EasyLaces",
+    "subtitle": "Visit us at Kings Avenue Mall",
+    "address": "Kings Avenue Mall, Paphos, Cyprus",
+    "hours": "Opening Hours",
+    "monSat": "Mon - Sat: 10:00 - 21:00",
+    "sun": "Sun: 11:00 - 19:00",
+    "phone": "Phone",
+    "whatsapp": "Chat with us on WhatsApp"
+  },
+  "order": {
+    "title": "Order Your EasyLaces",
+    "subtitle": "Fill in your details and pay securely with Stripe",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone / WhatsApp Number",
+    "color": "Select Color",
+    "quantity": "Quantity",
+    "pickupDate": "Preferred Pickup Date",
+    "notes": "Notes (optional)",
+    "notesPlaceholder": "Any special requests or notes...",
+    "total": "Total",
+    "payButton": "Pay Now with Stripe",
+    "pickupNote": "In-store pickup only at Kings Avenue Mall, Paphos",
+    "confirmNote": "You will receive a confirmation email with pickup details",
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number",
+    "selectColor": "Please select a color",
+    "processing": "Processing...",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "madeIn": "Made in Cyprus",
+    "rights": "© 2026 EasyLaces. All rights reserved.",
+    "quickLinks": "Quick Links"
+  },
+  "cookie": {
+    "message": "We use cookies to improve your experience. By continuing to browse, you agree to our use of cookies.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "success": {
+    "title": "Order Confirmed!",
+    "subtitle": "Your EasyLaces are ready for pickup!",
+    "orderSummary": "Order Summary",
+    "product": "Product",
+    "color": "Color",
+    "quantity": "Quantity",
+    "total": "Total",
+    "pickupInfo": "Pickup Information",
+    "pickupLocation": "Kings Avenue Mall, Paphos, Cyprus",
+    "pickupHours": "Mon-Sat: 10:00-21:00 | Sun: 11:00-19:00",
+    "pickupReminder": "Please bring your confirmation email or show this page at the store.",
+    "whatsappCta": "Contact Us on WhatsApp",
+    "backHome": "Back to Home"
+  },
+  "cancelled": {
+    "title": "Order Cancelled",
+    "subtitle": "Your order has been cancelled. No charges were made.",
+    "tryAgain": "Try Again",
+    "backHome": "Back to Home"
+  },
+  "whatsapp": {
+    "tooltip": "Chat with us"
+  }
+}
