@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
 import LanguageToggle from "./LanguageToggle";
-import { Menu, X, Link as LinkIcon } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Logo from "./Logo";
 
 const NAV_ITEMS = [
   { key: "howItWorks", href: "#how-it-works" },
@@ -50,9 +51,7 @@ export default function Header() {
           }}
           className="flex items-center gap-2"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-            <LinkIcon className="h-4 w-4 text-white" />
-          </div>
+          <Logo size={32} />
           <span className="text-2xl font-bold text-primary">EasyLaces</span>
         </a>
 
