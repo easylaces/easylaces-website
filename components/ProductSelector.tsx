@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
-import { COLORS, PRICE } from "@/types";
+import { Check, Star } from "lucide-react";
+import { BUNDLES, PRICE } from "@/types";
 import Image from "next/image";
 
 const PRODUCT_IMAGES = [
@@ -14,34 +14,16 @@ const PRODUCT_IMAGES = [
   "/images/hero-closeup.jpg",
 ];
 
-// Clip position per image (% of container). Each image can have multiple clips visible.
-const CLIP_OVERLAYS: { top: string; left: string; w: string; h: string }[][] = [
-  // hero-formal.jpg — small clip on front-right shoe tongue
-  [{ top: "67%", left: "52%", w: "5%", h: "4%" }],
-  // hero-casual.jpg — clip on front shoe tongue
-  [{ top: "37%", left: "45.5%", w: "6%", h: "6%" }],
-  // hero-jeans.jpg — clips on both shoes
-  [
-    { top: "49%", left: "46%", w: "6%", h: "4.5%" },
-    { top: "36%", left: "31%", w: "5%", h: "3.5%" },
-  ],
-  // hero-closeup.jpg — large prominent clip
-  [{ top: "46%", left: "39%", w: "12%", h: "10%" }],
-];
-
 export default function ProductSelector() {
-  const { t, locale } = useI18n();
-  const [selectedColor, setSelectedColor] = useState(COLORS[0].id);
+  const { t } = useI18n();
   const [activeImage, setActiveImage] = useState(0);
 
-  const activeColor = COLORS.find((c) => c.id === selectedColor)!;
-
-  const scrollToOrder = () => {
+  const scrollToOrder = (quantity: number) => {
     const orderSection = document.querySelector("#order");
     if (orderSection) {
       orderSection.scrollIntoView({ behavior: "smooth" });
       window.dispatchEvent(
-        new CustomEvent("easylaces-select-color", { detail: selectedColor })
+        new CustomEvent("easylaces-select-bundle", { detail: quantity })
       );
     }
   };
@@ -77,26 +59,11 @@ export default function ProductSelector() {
             <div className="relative h-[350px] w-full max-w-[450px] overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 sm:h-[450px]">
               <Image
                 src={PRODUCT_IMAGES[activeImage]}
-                alt={`EasyLaces Clip - ${activeColor.name[locale]}`}
+                alt="EasyLaces Clip"
                 fill
                 className="object-cover transition-all duration-500"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              {/* Clip color overlays — recolors the dark clip using lighten blend */}
-              {CLIP_OVERLAYS[activeImage]?.map((pos, idx) => (
-                <div
-                  key={idx}
-                  className="absolute rounded-sm transition-colors duration-500"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                    width: pos.w,
-                    height: pos.h,
-                    backgroundColor: activeColor.hex,
-                    mixBlendMode: "lighten",
-                  }}
-                />
-              ))}
             </div>
 
             {/* Thumbnail gallery */}
@@ -123,7 +90,7 @@ export default function ProductSelector() {
             </div>
           </motion.div>
 
-          {/* Product Info */}
+          {/* Bundle Options */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -133,71 +100,99 @@ export default function ProductSelector() {
             <h3 className="mb-2 text-3xl font-bold text-primary">
               {t("product.name")}
             </h3>
-            <div className="mb-6 flex items-baseline gap-3">
-              <p className="text-4xl font-extrabold text-accent">
-                €{PRICE.toFixed(2)}
-              </p>
-              <span className="text-sm font-medium text-gray-400">per pair</span>
-            </div>
+            <p className="mb-3 text-base leading-relaxed text-gray-500">
+              {t("product.specs")}
+            </p>
+            <p className="mb-6 text-sm font-medium text-accent/80">
+              {t("product.packInfo")}
+            </p>
 
-            {/* Color Swatches */}
-            <div className="mb-6">
-              <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                {t("order.color")}: <span className="normal-case text-primary">{activeColor.name[locale]}</span>
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {COLORS.map((color) => (
+            {/* Bundle Cards */}
+            <div className="mb-8 space-y-3">
+              {BUNDLES.map((bundle) => {
+                const clips = bundle.quantity * 4;
+                const pairs = bundle.quantity * 2;
+                const fullPrice = bundle.quantity * PRICE;
+                const savings = fullPrice - bundle.price;
+                const hasSavings = savings > 0.5;
+                const savingsPercent = hasSavings ? Math.round((savings / fullPrice) * 100) : 0;
+
+                return (
                   <button
-                    key={color.id}
-                    onClick={() => setSelectedColor(color.id)}
-                    className={`relative flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all duration-200 ${
-                      selectedColor === color.id
-                        ? "border-accent scale-110 shadow-md"
-                        : "border-transparent hover:scale-105"
+                    key={bundle.quantity}
+                    onClick={() => scrollToOrder(bundle.quantity)}
+                    className={`group relative flex w-full items-center justify-between rounded-2xl border-2 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5 ${
+                      bundle.bestSeller
+                        ? "border-accent bg-accent/[0.06] shadow-lg ring-1 ring-accent/20 scale-[1.02]"
+                        : "border-gray-200 bg-white/70 hover:border-accent/50"
                     }`}
-                    style={{ backgroundColor: color.hex }}
-                    aria-label={color.name[locale]}
                   >
-                    {selectedColor === color.id && (
-                      <Check
-                        className="h-5 w-5"
-                        style={{
-                          color:
-                            color.id === "white" ? "#1A1A1A" : "#FFFFFF",
-                        }}
-                      />
+                    {/* Best seller badge */}
+                    {bundle.bestSeller && (
+                      <div className="absolute -top-3.5 left-4 flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-white shadow-md">
+                        <Star className="h-3.5 w-3.5 fill-white" />
+                        {t("product.bestSeller")}
+                      </div>
                     )}
-                    {color.id === "white" && (
-                      <span className="absolute inset-0 rounded-full border border-gray-200" />
-                    )}
+
+                    {/* Left: quantity & details */}
+                    <div className="flex items-center gap-4">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl text-lg font-extrabold ${
+                        bundle.bestSeller
+                          ? "bg-accent text-white shadow-sm"
+                          : "bg-cream-dark text-primary"
+                      }`}>
+                        {bundle.quantity}x
+                      </div>
+                      <div>
+                        <p className="text-base font-semibold text-primary">
+                          {clips} {t("product.clipsCount")} · {pairs} {t("product.pairsCount")}
+                        </p>
+                        {hasSavings && (
+                          <p className={`text-sm font-bold ${
+                            bundle.bestSeller ? "text-green-600" : "text-green-600"
+                          }`}>
+                            {t("product.save")} €{savings.toFixed(2)} ({savingsPercent}%)
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Right: price */}
+                    <div className="text-right">
+                      <p className={`text-2xl font-extrabold ${
+                        bundle.bestSeller ? "text-accent" : "text-primary"
+                      }`}>
+                        €{bundle.price.toFixed(2)}
+                      </p>
+                      {bundle.quantity > 1 && (
+                        <p className="text-xs text-gray-400">
+                          €{(bundle.price / bundle.quantity).toFixed(2)} {t("product.perPack")}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Hover arrow */}
+                    <div className="ml-3 text-gray-300 transition-colors group-hover:text-accent">
+                      <Check className="h-5 w-5" />
+                    </div>
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
 
             {/* Feature highlights */}
-            <div className="mb-8 space-y-3">
-              <p className="text-base leading-relaxed text-gray-500">{t("product.specs")}</p>
-              <div className="flex flex-wrap gap-2">
-                {["Universal fit", "No-tie solution", "Durable clip", "6 colors"].map((feature) => (
-                  <span
-                    key={feature}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-cream-dark px-3.5 py-1.5 text-xs font-medium text-gray-600"
-                  >
-                    <Check className="h-3 w-3 text-accent" />
-                    {feature}
-                  </span>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-2">
+              {["Universal fit", "No-tie solution", "Durable clip", "4 clips per pack"].map((feature) => (
+                <span
+                  key={feature}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-cream-dark px-3.5 py-1.5 text-xs font-medium text-gray-600"
+                >
+                  <Check className="h-3 w-3 text-accent" />
+                  {feature}
+                </span>
+              ))}
             </div>
-
-            {/* CTA */}
-            <button
-              onClick={scrollToOrder}
-              className="inline-flex items-center justify-center rounded-full bg-accent px-10 py-4 text-lg font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-xl"
-            >
-              {t("product.addToOrder")}
-            </button>
           </motion.div>
         </div>
       </div>

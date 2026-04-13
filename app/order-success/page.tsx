@@ -35,7 +35,7 @@ function OrderSuccessContent() {
       setOrderDetails({
         color_name: "Your selected color",
         quantity: "1",
-        total: "€5.99",
+        total: "€6.99",
         pickup_date: "As selected",
         customer_name: "",
       });

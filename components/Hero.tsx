@@ -72,7 +72,7 @@ export default function Hero() {
           >
             <span className="flex items-center gap-1.5">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <span className="font-medium text-gray-600">4.9/5</span> rating
+              <span className="font-medium text-gray-600">5.0/5</span> rating
             </span>
             <span className="flex items-center gap-1.5">
               <Shield className="h-4 w-4 text-green-500" />
@@ -113,7 +113,7 @@ export default function Hero() {
               className="absolute -bottom-5 -right-5 rounded-2xl border border-white/60 bg-white p-5 shadow-xl"
             >
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Only</p>
-              <p className="text-3xl font-extrabold text-accent">€5.99</p>
+              <p className="text-3xl font-extrabold text-accent">€6.99</p>
               <p className="text-xs text-gray-400">per pair</p>
             </motion.div>
             {/* Floating rating badge */}

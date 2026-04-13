@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "EasyLaces Clip — Never Tie Your Shoes Again",
   description:
-    "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €5.99.",
+    "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €6.99.",
   keywords: [
     "EasyLaces",
     "no-tie laces",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "EasyLaces Clip — Never Tie Your Shoes Again",
     description:
-      "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €5.99.",
+      "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €6.99.",
     type: "website",
     locale: "en_US",
     alternateLocale: "el_GR",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "EasyLaces Clip — Never Tie Your Shoes Again",
     description:
-      "The revolutionary clip-on device that makes lacing instant. Only €5.99.",
+      "The revolutionary clip-on device that makes lacing instant. Only €6.99.",
   },
   robots: "index, follow",
 };

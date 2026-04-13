@@ -3,8 +3,8 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { ShoppingBag, Check, AlertCircle, Loader2 } from "lucide-react";
-import { COLORS, PRICE } from "@/types";
+import { ShoppingBag, Check, AlertCircle, Loader2, Clock } from "lucide-react";
+import { COLORS, BUNDLES } from "@/types";
 import type { OrderFormData } from "@/types";
 
 export default function OrderForm() {
@@ -13,7 +13,7 @@ export default function OrderForm() {
     fullName: "",
     email: "",
     phone: "",
-    color: "",
+    color: COLORS[0].id,
     quantity: 1,
     pickupDate: "",
     notes: "",
@@ -34,12 +34,33 @@ export default function OrderForm() {
     return () => window.removeEventListener("easylaces-select-color", handler);
   }, []);
 
-  // Min date = tomorrow
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const minDate = tomorrow.toISOString().split("T")[0];
+  // Listen for bundle selection from ProductSelector
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const quantity = (e as CustomEvent).detail;
+      if (quantity) {
+        setForm((prev) => ({ ...prev, quantity }));
+      }
+    };
+    window.addEventListener("easylaces-select-bundle", handler);
+    return () => window.removeEventListener("easylaces-select-bundle", handler);
+  }, []);
 
-  const total = (form.quantity * PRICE).toFixed(2);
+  // Min date = 4 working days from now
+  const getMinPickupDate = () => {
+    const date = new Date();
+    let workingDays = 0;
+    while (workingDays < 4) {
+      date.setDate(date.getDate() + 1);
+      const day = date.getDay();
+      if (day !== 0 && day !== 6) workingDays++;
+    }
+    return date.toISOString().split("T")[0];
+  };
+  const minDate = getMinPickupDate();
+
+  const bundle = BUNDLES.find((b) => b.quantity === form.quantity);
+  const total = bundle ? bundle.price.toFixed(2) : (form.quantity * BUNDLES[0].price).toFixed(2);
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof OrderFormData, string>> = {};
@@ -56,7 +77,11 @@ export default function OrderForm() {
       newErrors.phone = t("order.invalidPhone");
     }
     if (!form.color) newErrors.color = t("order.selectColor");
-    if (!form.pickupDate) newErrors.pickupDate = t("order.required");
+    if (!form.pickupDate) {
+      newErrors.pickupDate = t("order.required");
+    } else if (form.pickupDate < minDate) {
+      newErrors.pickupDate = t("order.dateTooEarly");
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -76,18 +101,21 @@ export default function OrderForm() {
         body: JSON.stringify({ ...form, locale }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        throw new Error("Checkout failed");
+        const code = data.code || "UNKNOWN";
+        setSubmitError(`${t("order.error")} (${code})`);
+        return;
       }
 
-      const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
-        throw new Error("No checkout URL returned");
+        setSubmitError(`${t("order.error")} (NO_CHECKOUT_URL)`);
       }
     } catch {
-      setSubmitError(t("order.error"));
+      setSubmitError(`${t("order.error")} (NETWORK_ERROR)`);
     } finally {
       setLoading(false);
     }
@@ -246,27 +274,40 @@ export default function OrderForm() {
               )}
             </div>
 
-            {/* Quantity */}
+            {/* Quantity (Bundle) */}
             <div className="mb-5">
               <label className="mb-2 block text-base font-medium text-primary">
                 {t("order.quantity")}
               </label>
-              <select
-                value={form.quantity}
-                onChange={(e) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    quantity: parseInt(e.target.value),
-                  }))
-                }
-                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-primary transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent"
-              >
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
+              <div className="grid grid-cols-4 gap-2">
+                {BUNDLES.map((b) => (
+                  <button
+                    key={b.quantity}
+                    type="button"
+                    onClick={() =>
+                      setForm((prev) => ({ ...prev, quantity: b.quantity }))
+                    }
+                    className={`relative rounded-xl border-2 px-3 py-3 text-center transition-all ${
+                      form.quantity === b.quantity
+                        ? "border-accent bg-accent/[0.06] shadow-sm"
+                        : "border-gray-200 bg-white/70 hover:border-accent/50"
+                    }`}
+                  >
+                    <p className={`text-lg font-bold ${
+                      form.quantity === b.quantity ? "text-accent" : "text-primary"
+                    }`}>
+                      {b.quantity}x
+                    </p>
+                    <p className="text-[11px] text-gray-500">{b.quantity * 2} {t("product.pairsCount")}</p>
+                    <p className="text-xs font-semibold text-gray-600">€{b.price.toFixed(2)}</p>
+                    {b.bestSeller && (
+                      <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">
+                        Best
+                      </span>
+                    )}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
 
             {/* Pickup Date */}
@@ -313,6 +354,14 @@ export default function OrderForm() {
                 {t("order.total")}
               </span>
               <span className="text-3xl font-extrabold text-accent">€{total}</span>
+            </div>
+
+            {/* Processing time notice */}
+            <div className="mb-6 flex items-start gap-3 rounded-xl border border-accent/10 bg-accent/[0.04] p-4">
+              <Clock className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+              <p className="text-sm leading-relaxed text-gray-600">
+                {t("order.processingTime")}
+              </p>
             </div>
 
             {/* Submit Error */}
