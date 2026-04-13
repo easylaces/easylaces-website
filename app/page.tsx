@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import ProductFeatures from "@/components/ProductFeatures";
 import ProductSelector from "@/components/ProductSelector";
 import Reviews from "@/components/Reviews";
 import StoreLocation from "@/components/StoreLocation";
@@ -18,6 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <HowItWorks />
+        <ProductFeatures />
         <div className="section-divider mx-auto max-w-3xl" />
         <ProductSelector />
         <Reviews />

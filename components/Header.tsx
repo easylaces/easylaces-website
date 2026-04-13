@@ -8,6 +8,7 @@ import Logo from "./Logo";
 
 const NAV_ITEMS = [
   { key: "howItWorks", href: "#how-it-works" },
+  { key: "features", href: "#features" },
   { key: "colors", href: "#colors" },
   { key: "reviews", href: "#reviews" },
   { key: "findUs", href: "#find-us" },
