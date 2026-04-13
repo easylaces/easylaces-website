@@ -1,11 +1,12 @@
 {
   "meta": {
     "title": "EasyLaces Clip — Never Tie Your Shoes Again",
-    "description": "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €5.99."
+    "description": "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €6.99."
   },
   "header": {
     "howItWorks": "How It Works",
-    "colors": "Colors",
+    "features": "Features",
+    "colors": "Bundles",
     "reviews": "Reviews",
     "findUs": "Find Us",
     "order": "Order"
@@ -13,7 +14,7 @@
   "hero": {
     "headline": "Never Tie Your Shoes Again",
     "subheadline": "The revolutionary clip that makes lacing instant. Available at Kings Avenue Mall, Paphos.",
-    "cta": "Order Now — €5.99",
+    "cta": "Order Now — €6.99",
     "secondaryCta": "See How It Works"
   },
   "howItWorks": {
@@ -26,18 +27,46 @@
     "step3Title": "Done! Walk Away",
     "step3Desc": "No knots, no hassle. Your shoes are secure and ready to go."
   },
+  "features": {
+    "title": "Why EasyLaces?",
+    "subtitle": "Designed for comfort, built to last",
+    "ecoTitle": "Eco-Friendly",
+    "ecoDesc": "Made from recyclable, biodegradable PLA+ material — safe for everyday use.",
+    "craftedTitle": "Precision-Crafted",
+    "craftedDesc": "Each clip is individually crafted and hand-finished for consistent quality and a perfect fit.",
+    "durableTitle": "Durable & Lightweight",
+    "durableDesc": "Strong enough for daily wear, yet light and comfortable on any shoe.",
+    "heatTitle": "Heat Resistant",
+    "heatDesc": "Maintains shape and durability up to 60 °C (140 °F).",
+    "fitTitle": "Universal Fit",
+    "fitDesc": "Designed for laces 6–7 mm wide and up to 2 mm thick — fits most sneakers and sports shoes.",
+    "safetyTitle": "Safety Tested",
+    "safetyDesc": "Recommended for ages 14 and above.",
+    "fitTip": "Tip: Some lace tips may be slightly thicker. Gently press with pliers for a smooth fit through the clip.",
+    "videoGuide": "Watch how it works"
+  },
   "product": {
-    "title": "Choose Your Color",
-    "subtitle": "One clip, many styles",
+    "title": "Bundle & Save",
+    "subtitle": "More clips, better value",
     "name": "EasyLaces Clip",
-    "price": "€5.99",
-    "specs": "Universal fit • Durable polymer • Washable • Fits all shoe types",
-    "addToOrder": "Add to Order"
+    "price": "€6.99",
+    "specs": "Universal fit • Durable polymer • Fits all shoe types",
+    "clipsCount": "clips",
+    "pairsCount": "pairs of shoes",
+    "packInfo": "Each pack includes 4 clips — fits 2 pairs of shoes (2 clips per pair)",
+    "addToOrder": "Order Now",
+    "bestSeller": "Best Seller",
+    "perPair": "per pair",
+    "perPack": "per pack",
+    "pairs": "pairs",
+    "pair": "pair",
+    "save": "Save"
   },
   "reviews": {
     "title": "What Our Customers Say",
     "subtitle": "Join hundreds of happy customers in Paphos",
-    "verified": "Verified Purchase"
+    "verified": "Verified Purchase",
+    "reviewCount": "reviews"
   },
   "location": {
     "title": "Pick Up Your EasyLaces",
@@ -62,12 +91,14 @@
     "notesPlaceholder": "Any special requests or notes...",
     "total": "Total",
     "payButton": "Pay Now with Stripe",
+    "processingTime": "Please allow 4 working days for preparation. We'll notify you by message when your order is ready for pickup.",
     "pickupNote": "In-store pickup only at Kings Avenue Mall, Paphos",
     "confirmNote": "You will receive a confirmation email with pickup details",
     "required": "This field is required",
     "invalidEmail": "Please enter a valid email address",
     "invalidPhone": "Please enter a valid phone number",
     "selectColor": "Please select a color",
+    "dateTooEarly": "Please select a date at least 4 working days from today",
     "processing": "Processing...",
     "error": "Something went wrong. Please try again."
   },
