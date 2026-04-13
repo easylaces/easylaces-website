@@ -10,7 +10,6 @@ import {
   Ruler,
   ShieldCheck,
   Lightbulb,
-  Play,
 } from "lucide-react";
 
 const features = [
@@ -85,19 +84,6 @@ export default function ProductFeatures() {
           </p>
         </motion.div>
 
-        {/* Video guide badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-4 flex justify-center"
-        >
-          <button className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-white px-5 py-2.5 text-sm font-medium text-accent shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-            <Play className="h-4 w-4" />
-            {t("features.videoGuide")}
-          </button>
-        </motion.div>
       </div>
     </section>
   );
