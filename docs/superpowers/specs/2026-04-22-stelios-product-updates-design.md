@@ -74,7 +74,7 @@ Fulfillment *
 
 Selecting one reveals the matching fields below and hides the other set:
 
-- **Delivery** → reveal: Address line 1, City, Postal code, Country (default "Cyprus"). Hide pickup date.
+- **Delivery** → reveal: Address line 1, City, Postal code. Country shown as a locked "🇨🇾 Cyprus" tag (no selector — Cyprus-only per resolved decision §Resolved decisions #2). Hide pickup date.
 - **Pickup by arrangement** → reveal: Preferred pickup date (existing field). Hide address fields. Show a short note: *"We'll contact you on WhatsApp to confirm a pickup time at Kings Avenue Mall."*
 
 Default = `delivery` (it's the primary option now).
@@ -93,7 +93,7 @@ export interface OrderFormData {
   address?: string;
   city?: string;
   postalCode?: string;
-  country?: string;
+  // country is hardcoded server-side to "Cyprus"; no form field.
   // pickup-only (existing):
   pickupDate?: string;
   // shared:
@@ -133,7 +133,7 @@ When `fulfillment === "delivery" && quantity === 4`, show a small green chip nea
 ### Validation
 
 - `fulfillment` required (always).
-- If delivery: `address`, `city`, `postalCode` required; `country` defaults to Cyprus and is editable.
+- If delivery: `address`, `city`, `postalCode` required. `country` is not a form field — it's set server-side to "Cyprus".
 - If pickup: `pickupDate` required and must be ≥ 4 working days from today (existing rule).
 - Color/colorMix validation per §3.
 
@@ -187,7 +187,7 @@ Switching quantity clears the other field automatically (e.g. going from 1x to 2
 Below the bundle list and above the "Add to Cart" button (actually: above the scroll-to-order buttons in `ProductSelector.tsx`), add a small info block:
 
 ```
-🚚 Home Delivery (1–3 business days) — €4.00
+🚚 Home Delivery (2–5 business days) — €4.00
 [ Read more ]
 ```
 
@@ -201,9 +201,9 @@ Two tabs at the top: **Shipping info** | **How to use it**. Default = Shipping i
 
 **Shipping info tab:**
 
-- "🚚 Home Delivery: 1–3 business days."
+- "🚚 Home Delivery: 2–5 business days."
 - "€4.00 flat fee for all orders. Free with the 4x bundle."
-- "We ship anywhere in Cyprus. Contact us on WhatsApp for orders outside Cyprus."
+- "Delivery across Cyprus only."
 - "🏬 Pickup by arrangement: available at Kings Avenue Mall, Paphos. Choose 'Pickup' at checkout and we'll confirm a time on WhatsApp."
 - Returns/support line: "Questions? WhatsApp us: +357 97 661 053."
 
@@ -225,7 +225,7 @@ Three stacked image blocks with short captions:
 
 ### Image spec note
 
-The new specs diagram says **5–6 mm wide**, but the current `features.fitDesc` in both locale files says **6–7 mm wide**. The spec diagram is the newer source of truth — update `features.fitDesc` to match ("5–6 mm wide"). Flag to Stelios if this was a typo in the diagram.
+The new specs diagram is the source of truth. Update `features.fitDesc` in both locale files: change "6–7 mm wide" to "5–6 mm wide" (thickness ≤ 2 mm stays the same).
 
 ### Image housekeeping
 
@@ -263,7 +263,7 @@ Rename the uploaded images to meaningful filenames during implementation:
 
 - `location.title`, `location.subtitle` — per above.
 - `meta.description`: replace "Available at Kings Avenue Mall, Paphos, Cyprus" with "Home delivery across Cyprus. Pickup at Kings Avenue Mall, Paphos by arrangement."
-- `hero.subheadline`: update similarly (move from "Available at Kings Avenue Mall" to "Delivered across Cyprus in 1–3 days, or pickup at Kings Avenue Mall by arrangement").
+- `hero.subheadline`: update similarly (move from "Available at Kings Avenue Mall" to "Delivered across Cyprus in 2–5 business days, or pickup at Kings Avenue Mall by arrangement").
 - `order.pickupNote`: change from "In-store pickup only at Kings Avenue Mall, Paphos" to "Pickup at Kings Avenue Mall is by arrangement on WhatsApp."
 - Remove unused keys: `location.hours`, `location.monSat`, `location.sun` (after confirming no other component reads them).
 
@@ -310,8 +310,8 @@ Manual, in dev server:
 - Reworking the "How It Works" existing section — left as-is; the new usage guide lives in the modal.
 - Moving pickup orders off the Stripe flow (still paid up-front for both modes).
 
-## Open questions (for Stelios)
+## Resolved decisions
 
-1. **Lace width in the spec image (5–6 mm) contradicts the current site copy (6–7 mm).** Which is right? I'll assume 5–6 mm until told otherwise.
-2. **Delivery zone**: Cyprus-only confirmed? Or should the form allow other countries and we quote on WhatsApp?
-3. **Shipping carrier / ETA wording**: keep "1–3 business days" as a hard promise? Or "usually 1–3 business days"?
+1. Lace spec: use the values from the new diagram — **5–6 mm wide, ≤ 2 mm thick**. Update `features.fitDesc` accordingly.
+2. Delivery zone: **Cyprus only**. The address form locks `country` to Cyprus (display-only field, no selector). Orders from outside Cyprus are not supported through the form.
+3. Delivery ETA wording: **"2–5 business days"** everywhere the delivery time is mentioned (bundle info block, modal, Stripe line-item name, email).
