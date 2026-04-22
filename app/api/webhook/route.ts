@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const colorName = meta.color_name || "N/A";
     const pickupDate = meta.pickup_date || "N/A";
     const notes = meta.notes || "None";
-    const quantity = session.line_items?.data?.[0]?.quantity || "N/A";
+    const quantity = meta.bundle_quantity || session.line_items?.data?.[0]?.quantity || "N/A";
     const total = session.amount_total
       ? `€${(session.amount_total / 100).toFixed(2)}`
       : "N/A";

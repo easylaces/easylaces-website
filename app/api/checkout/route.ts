@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
-import { COLORS, BUNDLES, PRICE } from "@/types";
+import { COLORS, BUNDLES } from "@/types";
 import type { CheckoutRequest } from "@/types";
 
 function getMinPickupDate(): string {
@@ -68,12 +68,12 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `EasyLaces Clip - ${colorName}`,
+              name: `EasyLaces Clip Bundle — ${quantity}x pack (${quantity * 4} clips)`,
               description: `Color: ${colorName} | Pickup: ${pickupDate} | Kings Avenue Mall, Paphos`,
             },
-            unit_amount: Math.round(PRICE * 100), // Stripe expects cents
+            unit_amount: Math.round(bundle.price * 100),
           },
-          quantity: quantity,
+          quantity: 1,
         },
       ],
       metadata: {
@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
         customer_phone: phone,
         color: color,
         color_name: colorName,
+        bundle_quantity: String(quantity),
         pickup_date: pickupDate,
         notes: notes || "",
         locale: locale || "en",
