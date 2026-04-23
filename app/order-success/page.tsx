@@ -6,8 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
-  MapPin,
-  Clock,
+  Mail,
   MessageCircle,
   ArrowLeft,
   Package,
@@ -138,13 +137,13 @@ function OrderSuccessContent() {
             </div>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <p className="text-sm text-gray-700">
                   {t("success.pickupLocation")}
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <p className="text-sm text-gray-700">
                   {t("success.pickupHours")}
                 </p>
