@@ -3,9 +3,22 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { ShoppingBag, Check, AlertCircle, Loader2, Clock } from "lucide-react";
-import { COLORS, BUNDLES } from "@/types";
-import type { OrderFormData } from "@/types";
+import {
+  ShoppingBag,
+  Check,
+  AlertCircle,
+  Loader2,
+  Clock,
+  Truck,
+  Store,
+} from "lucide-react";
+import {
+  COLORS,
+  BUNDLES,
+  SHIPPING_FEE,
+  FREE_SHIPPING_BUNDLE,
+} from "@/types";
+import type { OrderFormData, FulfillmentMode } from "@/types";
 
 export default function OrderForm() {
   const { t, locale } = useI18n();
@@ -14,25 +27,18 @@ export default function OrderForm() {
     email: "",
     phone: "",
     color: COLORS[0].id,
+    colorMix: "",
     quantity: 1,
+    fulfillment: "delivery",
+    address: "",
+    city: "",
+    postalCode: "",
     pickupDate: "",
     notes: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof OrderFormData, string>>>({});
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
-  // Listen for color selection from ProductSelector
-  useEffect(() => {
-    const handler = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail) {
-        setForm((prev) => ({ ...prev, color: detail }));
-      }
-    };
-    window.addEventListener("easylaces-select-color", handler);
-    return () => window.removeEventListener("easylaces-select-color", handler);
-  }, []);
 
   // Listen for bundle selection from ProductSelector
   useEffect(() => {
@@ -59,8 +65,15 @@ export default function OrderForm() {
   };
   const minDate = getMinPickupDate();
 
-  const bundle = BUNDLES.find((b) => b.quantity === form.quantity);
-  const total = bundle ? bundle.price.toFixed(2) : (form.quantity * BUNDLES[0].price).toFixed(2);
+  const bundle = BUNDLES.find((b) => b.quantity === form.quantity) || BUNDLES[0];
+  const shippingFee =
+    form.fulfillment === "delivery" && form.quantity !== FREE_SHIPPING_BUNDLE
+      ? SHIPPING_FEE
+      : 0;
+  const subtotal = bundle.price;
+  const total = (subtotal + shippingFee).toFixed(2);
+  const isFreeShipping =
+    form.fulfillment === "delivery" && form.quantity === FREE_SHIPPING_BUNDLE;
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof OrderFormData, string>> = {};
@@ -76,11 +89,30 @@ export default function OrderForm() {
     } else if (!/^[+]?[\d\s()-]{7,}$/.test(form.phone)) {
       newErrors.phone = t("order.invalidPhone");
     }
-    if (!form.color) newErrors.color = t("order.selectColor");
-    if (!form.pickupDate) {
-      newErrors.pickupDate = t("order.required");
-    } else if (form.pickupDate < minDate) {
-      newErrors.pickupDate = t("order.dateTooEarly");
+
+    // Color vs color mix — conditional on quantity
+    if (form.quantity === 1) {
+      if (!form.color) newErrors.color = t("order.selectColor");
+    } else {
+      const mix = form.colorMix.trim();
+      if (!mix) {
+        newErrors.colorMix = t("order.colorMixRequired");
+      } else if (mix.length < 3) {
+        newErrors.colorMix = t("order.colorMixTooShort");
+      }
+    }
+
+    // Fulfillment-specific fields
+    if (form.fulfillment === "delivery") {
+      if (!form.address.trim()) newErrors.address = t("order.addressRequired");
+      if (!form.city.trim()) newErrors.city = t("order.cityRequired");
+      if (!form.postalCode.trim()) newErrors.postalCode = t("order.postalCodeRequired");
+    } else {
+      if (!form.pickupDate) {
+        newErrors.pickupDate = t("order.required");
+      } else if (form.pickupDate < minDate) {
+        newErrors.pickupDate = t("order.dateTooEarly");
+      }
     }
 
     setErrors(newErrors);
@@ -126,6 +158,18 @@ export default function OrderForm() {
       errors[field] ? "border-red-400 focus:ring-red-400" : "border-gray-200 focus:ring-accent"
     } bg-white/70 px-4 py-3 text-primary placeholder-gray-400 transition-all focus:border-transparent focus:outline-none focus:ring-2`;
 
+  const setFulfillment = (mode: FulfillmentMode) => {
+    setForm((prev) => ({ ...prev, fulfillment: mode }));
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.address;
+      delete next.city;
+      delete next.postalCode;
+      delete next.pickupDate;
+      return next;
+    });
+  };
+
   return (
     <section id="order" className="relative bg-cream-dark py-24 sm:py-32">
       {/* Background accent */}
@@ -162,6 +206,45 @@ export default function OrderForm() {
             className="rounded-2xl border border-cream-dark bg-cream p-6 shadow-lg sm:p-10"
             noValidate
           >
+            {/* Fulfillment toggle */}
+            <div className="mb-6">
+              <label className="mb-2 block text-base font-medium text-primary">
+                {t("order.fulfillmentLabel")} *
+              </label>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setFulfillment("delivery")}
+                  className={`flex items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+                    form.fulfillment === "delivery"
+                      ? "border-accent bg-accent/[0.06] shadow-sm"
+                      : "border-gray-200 bg-white/70 hover:border-accent/50"
+                  }`}
+                >
+                  <Truck className={`h-6 w-6 shrink-0 ${form.fulfillment === "delivery" ? "text-accent" : "text-gray-400"}`} />
+                  <div>
+                    <p className="text-sm font-semibold text-primary">{t("order.deliveryOption")}</p>
+                    <p className="text-xs text-gray-500">{t("order.deliveryOptionDesc")}</p>
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFulfillment("pickup")}
+                  className={`flex items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+                    form.fulfillment === "pickup"
+                      ? "border-accent bg-accent/[0.06] shadow-sm"
+                      : "border-gray-200 bg-white/70 hover:border-accent/50"
+                  }`}
+                >
+                  <Store className={`h-6 w-6 shrink-0 ${form.fulfillment === "pickup" ? "text-accent" : "text-gray-400"}`} />
+                  <div>
+                    <p className="text-sm font-semibold text-primary">{t("order.pickupOption")}</p>
+                    <p className="text-xs text-gray-500">{t("order.pickupOptionDesc")}</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             {/* Full Name */}
             <div className="mb-5">
               <label className="mb-2 block text-base font-medium text-primary">
@@ -225,55 +308,6 @@ export default function OrderForm() {
               )}
             </div>
 
-            {/* Color Selection */}
-            <div className="mb-5">
-              <label className="mb-2 block text-base font-medium text-primary">
-                {t("order.color")} *
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {COLORS.map((color) => (
-                  <button
-                    key={color.id}
-                    type="button"
-                    onClick={() =>
-                      setForm((prev) => ({ ...prev, color: color.id }))
-                    }
-                    className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all ${
-                      form.color === color.id
-                        ? "border-accent scale-110"
-                        : "border-transparent hover:scale-105"
-                    }`}
-                    style={{ backgroundColor: color.hex }}
-                    title={color.name[locale]}
-                  >
-                    {form.color === color.id && (
-                      <Check
-                        className="h-4 w-4"
-                        style={{
-                          color:
-                            color.id === "white" ? "#1A1A1A" : "#FFFFFF",
-                        }}
-                      />
-                    )}
-                    {color.id === "white" && (
-                      <span className="absolute inset-0 rounded-full border border-gray-200" />
-                    )}
-                  </button>
-                ))}
-              </div>
-              {form.color && (
-                <p className="mt-2 text-sm text-gray-500">
-                  {COLORS.find((c) => c.id === form.color)?.name[locale]}
-                </p>
-              )}
-              {errors.color && (
-                <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
-                  <AlertCircle className="h-3 w-3" />
-                  {errors.color}
-                </p>
-              )}
-            </div>
-
             {/* Quantity (Bundle) */}
             <div className="mb-5">
               <label className="mb-2 block text-base font-medium text-primary">
@@ -310,27 +344,182 @@ export default function OrderForm() {
               </div>
             </div>
 
-            {/* Pickup Date */}
+            {/* Color Selection (1x) or Mix (2x+) */}
             <div className="mb-5">
-              <label className="mb-2 block text-base font-medium text-primary">
-                {t("order.pickupDate")} *
-              </label>
-              <input
-                type="date"
-                value={form.pickupDate}
-                min={minDate}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, pickupDate: e.target.value }))
-                }
-                className={inputClass("pickupDate")}
-              />
-              {errors.pickupDate && (
-                <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
-                  <AlertCircle className="h-3 w-3" />
-                  {errors.pickupDate}
-                </p>
+              {form.quantity === 1 ? (
+                <>
+                  <label className="mb-2 block text-base font-medium text-primary">
+                    {t("order.color")} *
+                  </label>
+                  <div className="flex flex-wrap gap-3">
+                    {COLORS.map((color) => (
+                      <button
+                        key={color.id}
+                        type="button"
+                        onClick={() =>
+                          setForm((prev) => ({ ...prev, color: color.id }))
+                        }
+                        className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all ${
+                          form.color === color.id
+                            ? "border-accent scale-110"
+                            : "border-transparent hover:scale-105"
+                        }`}
+                        style={{ backgroundColor: color.hex }}
+                        title={color.name[locale]}
+                      >
+                        {form.color === color.id && (
+                          <Check
+                            className="h-4 w-4"
+                            style={{
+                              color:
+                                color.id === "white" ? "#1A1A1A" : "#FFFFFF",
+                            }}
+                          />
+                        )}
+                        {color.id === "white" && (
+                          <span className="absolute inset-0 rounded-full border border-gray-200" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  {form.color && (
+                    <p className="mt-2 text-sm text-gray-500">
+                      {COLORS.find((c) => c.id === form.color)?.name[locale]}
+                    </p>
+                  )}
+                  {errors.color && (
+                    <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                      <AlertCircle className="h-3 w-3" />
+                      {errors.color}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <label className="mb-2 block text-base font-medium text-primary">
+                    {t("order.colorMixLabel")} *
+                  </label>
+                  <input
+                    type="text"
+                    value={form.colorMix}
+                    maxLength={200}
+                    placeholder={t("order.colorMixPlaceholder")}
+                    onChange={(e) =>
+                      setForm((prev) => ({ ...prev, colorMix: e.target.value }))
+                    }
+                    className={inputClass("colorMix")}
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    {t("order.colorMixHelper").replace("{count}", String(form.quantity))}
+                  </p>
+                  {errors.colorMix && (
+                    <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                      <AlertCircle className="h-3 w-3" />
+                      {errors.colorMix}
+                    </p>
+                  )}
+                </>
               )}
             </div>
+
+            {/* Delivery address (delivery) or Pickup date (pickup) */}
+            {form.fulfillment === "delivery" ? (
+              <>
+                <div className="mb-5">
+                  <label className="mb-2 block text-base font-medium text-primary">
+                    {t("order.addressLabel")} *
+                  </label>
+                  <input
+                    type="text"
+                    value={form.address}
+                    placeholder={t("order.addressPlaceholder")}
+                    onChange={(e) =>
+                      setForm((prev) => ({ ...prev, address: e.target.value }))
+                    }
+                    className={inputClass("address")}
+                  />
+                  {errors.address && (
+                    <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                      <AlertCircle className="h-3 w-3" />
+                      {errors.address}
+                    </p>
+                  )}
+                </div>
+                <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-base font-medium text-primary">
+                      {t("order.cityLabel")} *
+                    </label>
+                    <input
+                      type="text"
+                      value={form.city}
+                      onChange={(e) =>
+                        setForm((prev) => ({ ...prev, city: e.target.value }))
+                      }
+                      className={inputClass("city")}
+                    />
+                    {errors.city && (
+                      <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                        <AlertCircle className="h-3 w-3" />
+                        {errors.city}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-base font-medium text-primary">
+                      {t("order.postalCodeLabel")} *
+                    </label>
+                    <input
+                      type="text"
+                      value={form.postalCode}
+                      onChange={(e) =>
+                        setForm((prev) => ({ ...prev, postalCode: e.target.value }))
+                      }
+                      className={inputClass("postalCode")}
+                    />
+                    {errors.postalCode && (
+                      <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                        <AlertCircle className="h-3 w-3" />
+                        {errors.postalCode}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-5">
+                  <label className="mb-2 block text-base font-medium text-primary">
+                    {t("order.countryLabel")}
+                  </label>
+                  <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-600">
+                    <span aria-hidden>🇨🇾</span>
+                    <span className="text-sm font-medium">Cyprus</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="mb-5">
+                <label className="mb-2 block text-base font-medium text-primary">
+                  {t("order.pickupDate")} *
+                </label>
+                <input
+                  type="date"
+                  value={form.pickupDate}
+                  min={minDate}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, pickupDate: e.target.value }))
+                  }
+                  className={inputClass("pickupDate")}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  {t("order.pickupConfirmNote")}
+                </p>
+                {errors.pickupDate && (
+                  <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
+                    <AlertCircle className="h-3 w-3" />
+                    {errors.pickupDate}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Notes */}
             <div className="mb-6">
@@ -348,12 +537,30 @@ export default function OrderForm() {
               />
             </div>
 
-            {/* Total */}
-            <div className="mb-6 flex items-center justify-between rounded-xl border border-accent/10 bg-accent/[0.04] p-5">
-              <span className="text-lg font-semibold text-primary">
-                {t("order.total")}
-              </span>
-              <span className="text-3xl font-extrabold text-accent">€{total}</span>
+            {/* Subtotal / Shipping / Total */}
+            <div className="mb-6 space-y-2 rounded-xl border border-accent/10 bg-accent/[0.04] p-5">
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <span>{t("order.total")} ({form.quantity}x)</span>
+                <span className="font-semibold text-primary">€{subtotal.toFixed(2)}</span>
+              </div>
+              {form.fulfillment === "delivery" && (
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                  <span>{t("order.shippingFeeLabel")}</span>
+                  {isFreeShipping ? (
+                    <span className="font-semibold text-green-600">
+                      {t("order.freeShippingChip")}
+                    </span>
+                  ) : (
+                    <span className="font-semibold text-primary">€{shippingFee.toFixed(2)}</span>
+                  )}
+                </div>
+              )}
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-lg font-semibold text-primary">
+                  {t("order.total")}
+                </span>
+                <span className="text-3xl font-extrabold text-accent">€{total}</span>
+              </div>
             </div>
 
             {/* Processing time notice */}
