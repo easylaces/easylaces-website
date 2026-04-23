@@ -601,9 +601,11 @@ export default function OrderForm() {
             {/* Notes */}
             <div className="mt-4 space-y-2 text-center">
               <p className="text-xs text-gray-400">{t("order.confirmNote")}</p>
-              <p className="text-xs font-medium text-gray-500">
-                {t("order.pickupNote")}
-              </p>
+              {form.fulfillment === "pickup" && (
+                <p className="text-xs font-medium text-gray-500">
+                  {t("order.pickupNote")}
+                </p>
+              )}
             </div>
           </form>
         </motion.div>
