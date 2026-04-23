@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { Check, Star } from "lucide-react";
-import { BUNDLES, PRICE } from "@/types";
+import { Check, Star, Truck } from "lucide-react";
+import { BUNDLES, PRICE, FREE_SHIPPING_BUNDLE } from "@/types";
 import Image from "next/image";
+import ShippingGuideModal from "./ShippingGuideModal";
 
 const PRODUCT_IMAGES = [
   "/images/hero-formal.jpg",
@@ -17,6 +18,7 @@ const PRODUCT_IMAGES = [
 export default function ProductSelector() {
   const { t } = useI18n();
   const [activeImage, setActiveImage] = useState(0);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   const scrollToOrder = (quantity: number) => {
     const orderSection = document.querySelector("#order");
@@ -155,6 +157,12 @@ export default function ProductSelector() {
                             {t("product.save")} €{savings.toFixed(2)} ({savingsPercent}%)
                           </p>
                         )}
+                        {bundle.quantity === FREE_SHIPPING_BUNDLE && (
+                          <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">
+                            <Truck className="h-3 w-3" />
+                            {t("product.freeShippingBadge")}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -181,6 +189,20 @@ export default function ProductSelector() {
               })}
             </div>
 
+            {/* Delivery info + guide modal trigger */}
+            <div className="mb-6 flex items-center justify-between rounded-xl border border-accent/15 bg-accent/[0.04] px-4 py-3">
+              <p className="text-sm font-medium text-gray-700">
+                {t("product.deliveryInfo")}
+              </p>
+              <button
+                type="button"
+                onClick={() => setGuideOpen(true)}
+                className="shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+              >
+                {t("product.readMore")}
+              </button>
+            </div>
+
             {/* Feature highlights */}
             <div className="flex flex-wrap gap-2">
               {["Universal fit", "No-tie solution", "Durable clip", "4 clips per pack"].map((feature) => (
@@ -196,6 +218,7 @@ export default function ProductSelector() {
           </motion.div>
         </div>
       </div>
+      <ShippingGuideModal open={guideOpen} onClose={() => setGuideOpen(false)} />
     </section>
   );
 }
