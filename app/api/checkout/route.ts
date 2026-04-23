@@ -75,6 +75,12 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
+      if (mix.length > 300) {
+        return NextResponse.json(
+          { error: "Color mix is too long (max 300 characters)", code: "COLOR_MIX_TOO_LONG" },
+          { status: 400 }
+        );
+      }
       colorLabel = mix;
     }
 
@@ -90,6 +96,12 @@ export async function POST(request: NextRequest) {
       if (!pickupDate) {
         return NextResponse.json(
           { error: "Pickup date is required", code: "MISSING_PICKUP_DATE" },
+          { status: 400 }
+        );
+      }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(pickupDate)) {
+        return NextResponse.json(
+          { error: "Pickup date must be in YYYY-MM-DD format", code: "INVALID_DATE_FORMAT" },
           { status: 400 }
         );
       }
@@ -161,7 +173,7 @@ export async function POST(request: NextRequest) {
             ? `${address}, ${city} ${postalCode}, Cyprus`
             : "",
         pickup_date: fulfillment === "pickup" ? pickupDate : "",
-        notes: notes || "",
+        notes: (notes || "").slice(0, 500),
         locale: locale || "en",
       },
       success_url: `${origin}/order-success?session_id={CHECKOUT_SESSION_ID}`,
