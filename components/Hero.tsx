@@ -36,7 +36,7 @@ export default function Hero() {
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent"
           >
             <Zap className="h-4 w-4 fill-accent" />
-            <span>Kings Avenue Mall, Paphos</span>
+            <span>{t("hero.badge")}</span>
           </motion.div>
 
           <h1 className="mb-6 text-5xl font-extrabold leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
@@ -80,7 +80,7 @@ export default function Hero() {
             </span>
             <span className="flex items-center gap-1.5">
               <Truck className="h-4 w-4 text-accent" />
-              In-store pickup
+              {t("hero.trustDelivery")}
             </span>
           </motion.div>
         </motion.div>
