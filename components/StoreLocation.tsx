@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Phone, MessageCircle } from "lucide-react";
+import { MapPin, Phone, MessageCircle } from "lucide-react";
 
 export default function StoreLocation() {
   const { t } = useI18n();
@@ -71,22 +71,6 @@ export default function StoreLocation() {
                 </div>
               </div>
 
-              {/* Hours */}
-              <div className="flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10">
-                  <Clock className="h-6 w-6 text-accent" />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-primary">
-                    {t("location.hours")}
-                  </p>
-                  <p className="text-base text-gray-500">
-                    {t("location.monSat")}
-                  </p>
-                  <p className="text-base text-gray-500">{t("location.sun")}</p>
-                </div>
-              </div>
-
               {/* Phone */}
               <div className="flex gap-4">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10">
@@ -103,6 +87,13 @@ export default function StoreLocation() {
                     +357 97 661 053
                   </a>
                 </div>
+              </div>
+
+              {/* "Not a physical store" note */}
+              <div className="rounded-xl border border-accent/15 bg-accent/[0.04] p-4">
+                <p className="text-sm leading-relaxed text-gray-700">
+                  {t("location.notAStore")}
+                </p>
               </div>
 
               {/* WhatsApp */}
