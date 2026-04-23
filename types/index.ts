@@ -15,12 +15,21 @@ export interface Review {
   lang: Language;
 }
 
+export type FulfillmentMode = "delivery" | "pickup";
+
 export interface OrderFormData {
   fullName: string;
   email: string;
   phone: string;
-  color: string;
+  color: string;       // used when quantity === 1
+  colorMix: string;    // used when quantity >= 2
   quantity: number;
+  fulfillment: FulfillmentMode;
+  // delivery-only (optional at the type level; validated based on fulfillment):
+  address: string;
+  city: string;
+  postalCode: string;
+  // pickup-only:
   pickupDate: string;
   notes: string;
 }
@@ -56,3 +65,5 @@ export const BUNDLES: Bundle[] = [
 export const PRICE = 6.99;
 export const CURRENCY = "EUR";
 export const WHATSAPP_NUMBER = "35797661053";
+export const SHIPPING_FEE = 4.0;
+export const FREE_SHIPPING_BUNDLE = 4; // quantity at which shipping becomes free
