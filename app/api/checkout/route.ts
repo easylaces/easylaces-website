@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
-import { COLORS, BUNDLES } from "@/types";
+import {
+  COLORS,
+  BUNDLES,
+  SHIPPING_FEE,
+  FREE_SHIPPING_BUNDLE,
+} from "@/types";
 import type { CheckoutRequest } from "@/types";
 
 function getMinPickupDate(): string {
@@ -18,26 +23,31 @@ function getMinPickupDate(): string {
 export async function POST(request: NextRequest) {
   try {
     const body: CheckoutRequest = await request.json();
-    const { fullName, email, phone, color, quantity, pickupDate, notes, locale } = body;
+    const {
+      fullName,
+      email,
+      phone,
+      color,
+      colorMix,
+      quantity,
+      fulfillment,
+      address,
+      city,
+      postalCode,
+      pickupDate,
+      notes,
+      locale,
+    } = body;
 
-    // Validate required fields
-    if (!fullName || !email || !phone || !color || !quantity || !pickupDate) {
+    // Base required fields
+    if (!fullName || !email || !phone || !quantity || !fulfillment) {
       return NextResponse.json(
         { error: "Missing required fields", code: "MISSING_FIELDS" },
         { status: 400 }
       );
     }
 
-    // Validate pickup date is at least 4 working days from now
-    const minDate = getMinPickupDate();
-    if (pickupDate < minDate) {
-      return NextResponse.json(
-        { error: "Pickup date must be at least 4 working days from today", code: "DATE_TOO_EARLY" },
-        { status: 400 }
-      );
-    }
-
-    // Validate bundle exists
+    // Validate bundle
     const bundle = BUNDLES.find((b) => b.quantity === quantity);
     if (!bundle) {
       return NextResponse.json(
@@ -46,43 +56,111 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Find color name
-    const colorObj = COLORS.find((c) => c.id === color);
-    if (!colorObj) {
+    // Color vs color mix — conditional on quantity
+    let colorLabel: string;
+    if (quantity === 1) {
+      const colorObj = COLORS.find((c) => c.id === color);
+      if (!colorObj) {
+        return NextResponse.json(
+          { error: "Invalid color selected", code: "INVALID_COLOR" },
+          { status: 400 }
+        );
+      }
+      colorLabel = colorObj.name[locale || "en"];
+    } else {
+      const mix = (colorMix || "").trim();
+      if (mix.length < 3) {
+        return NextResponse.json(
+          { error: "Color mix is required for multi-pack bundles", code: "MISSING_COLOR_MIX" },
+          { status: 400 }
+        );
+      }
+      colorLabel = mix;
+    }
+
+    // Fulfillment-specific validation
+    if (fulfillment === "delivery") {
+      if (!address?.trim() || !city?.trim() || !postalCode?.trim()) {
+        return NextResponse.json(
+          { error: "Missing delivery address fields", code: "MISSING_ADDRESS" },
+          { status: 400 }
+        );
+      }
+    } else if (fulfillment === "pickup") {
+      if (!pickupDate) {
+        return NextResponse.json(
+          { error: "Pickup date is required", code: "MISSING_PICKUP_DATE" },
+          { status: 400 }
+        );
+      }
+      const minDate = getMinPickupDate();
+      if (pickupDate < minDate) {
+        return NextResponse.json(
+          { error: "Pickup date must be at least 4 working days from today", code: "DATE_TOO_EARLY" },
+          { status: 400 }
+        );
+      }
+    } else {
       return NextResponse.json(
-        { error: "Invalid color selected", code: "INVALID_COLOR" },
+        { error: "Invalid fulfillment mode", code: "INVALID_FULFILLMENT" },
         { status: 400 }
       );
     }
-    const colorName = colorObj.name[locale || "en"];
+
+    // Compute shipping
+    const needsShippingFee =
+      fulfillment === "delivery" && quantity !== FREE_SHIPPING_BUNDLE;
 
     const origin = request.headers.get("origin") || "http://localhost:3000";
+
+    // Build line items
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
+      {
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: `EasyLaces Clip Bundle — ${quantity}x pack (${quantity * 4} clips)`,
+            description:
+              fulfillment === "delivery"
+                ? `Color: ${colorLabel} | Delivery to ${address}, ${city} ${postalCode}, Cyprus`
+                : `Color: ${colorLabel} | Pickup: ${pickupDate} | Kings Avenue Mall, Paphos`,
+          },
+          unit_amount: Math.round(bundle.price * 100),
+        },
+        quantity: 1,
+      },
+    ];
+
+    if (needsShippingFee) {
+      lineItems.push({
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: "Home Delivery (2–5 business days)",
+          },
+          unit_amount: Math.round(SHIPPING_FEE * 100),
+        },
+        quantity: 1,
+      });
+    }
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       customer_email: email,
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: `EasyLaces Clip Bundle — ${quantity}x pack (${quantity * 4} clips)`,
-              description: `Color: ${colorName} | Pickup: ${pickupDate} | Kings Avenue Mall, Paphos`,
-            },
-            unit_amount: Math.round(bundle.price * 100),
-          },
-          quantity: 1,
-        },
-      ],
+      line_items: lineItems,
       metadata: {
         customer_name: fullName,
         customer_phone: phone,
-        color: color,
-        color_name: colorName,
+        color_label: colorLabel,
         bundle_quantity: String(quantity),
-        pickup_date: pickupDate,
+        fulfillment,
+        delivery_address:
+          fulfillment === "delivery"
+            ? `${address}, ${city} ${postalCode}, Cyprus`
+            : "",
+        pickup_date: fulfillment === "pickup" ? pickupDate : "",
         notes: notes || "",
         locale: locale || "en",
       },
@@ -94,7 +172,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Checkout error:", error);
 
-    // Handle specific Stripe errors
     if (error instanceof Stripe.errors.StripeError) {
       const stripeCode = error.code || error.type;
       return NextResponse.json(
