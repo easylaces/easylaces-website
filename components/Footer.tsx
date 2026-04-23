@@ -7,7 +7,7 @@ import Logo from "./Logo";
 const NAV_LINKS = [
   { key: "howItWorks", href: "#how-it-works" },
   { key: "order", href: "#order" },
-  { key: "findUs", href: "#find-us" },
+  { key: "pickup", href: "#find-us" },
 ] as const;
 
 export default function Footer() {
