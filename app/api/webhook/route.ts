@@ -5,6 +5,15 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -33,13 +42,22 @@ export async function POST(request: NextRequest) {
     const customerName = meta.customer_name || "N/A";
     const customerEmail = session.customer_email || "N/A";
     const customerPhone = meta.customer_phone || "N/A";
-    const colorName = meta.color_name || "N/A";
-    const pickupDate = meta.pickup_date || "N/A";
+    const colorLabel = meta.color_label || meta.color_name || "N/A";
+    const bundleQuantity = meta.bundle_quantity || "N/A";
+    const fulfillment = meta.fulfillment || "pickup";
+    const deliveryAddress = meta.delivery_address || "";
+    const pickupDate = meta.pickup_date || "";
     const notes = meta.notes || "None";
-    const quantity = meta.bundle_quantity || session.line_items?.data?.[0]?.quantity || "N/A";
     const total = session.amount_total
       ? `€${(session.amount_total / 100).toFixed(2)}`
       : "N/A";
+
+    const fulfillmentLabel =
+      fulfillment === "delivery" ? "🚚 Home Delivery" : "🏬 Pickup by arrangement";
+    const fulfillmentDetail =
+      fulfillment === "delivery"
+        ? deliveryAddress || "N/A"
+        : pickupDate || "N/A";
 
     try {
       await resend.emails.send({
@@ -55,41 +73,49 @@ export async function POST(request: NextRequest) {
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
               <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 12px 0; font-weight: bold; color: #333;">Customer Name</td>
-                <td style="padding: 12px 0; color: #555;">${customerName}</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(customerName)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 12px 0; font-weight: bold; color: #333;">Email</td>
-                <td style="padding: 12px 0; color: #555;">${customerEmail}</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(customerEmail)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 12px 0; font-weight: bold; color: #333;">Phone / WhatsApp</td>
-                <td style="padding: 12px 0; color: #555;">${customerPhone}</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(customerPhone)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 12px 0; font-weight: bold; color: #333;">Color</td>
-                <td style="padding: 12px 0; color: #555;">${colorName}</td>
+                <td style="padding: 12px 0; font-weight: bold; color: #333;">Color / Mix</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(colorLabel)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 12px 0; font-weight: bold; color: #333;">Quantity</td>
-                <td style="padding: 12px 0; color: #555;">${quantity}x pack</td>
+                <td style="padding: 12px 0; font-weight: bold; color: #333;">Bundle</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(String(bundleQuantity))}x pack</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
                 <td style="padding: 12px 0; font-weight: bold; color: #333;">Total Paid</td>
                 <td style="padding: 12px 0; color: #2563EB; font-weight: bold; font-size: 18px;">${total}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 12px 0; font-weight: bold; color: #333;">Pickup Date</td>
-                <td style="padding: 12px 0; color: #555;">${pickupDate}</td>
+                <td style="padding: 12px 0; font-weight: bold; color: #333;">Fulfillment</td>
+                <td style="padding: 12px 0; color: #555;">${fulfillmentLabel}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px 0; font-weight: bold; color: #333;">${fulfillment === "delivery" ? "Delivery Address" : "Pickup Date"}</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(fulfillmentDetail)}</td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; font-weight: bold; color: #333;">Notes</td>
-                <td style="padding: 12px 0; color: #555;">${notes}</td>
+                <td style="padding: 12px 0; color: #555;">${escapeHtml(notes)}</td>
               </tr>
             </table>
 
             <div style="margin-top: 30px; padding: 15px; background-color: #f0f7ff; border-radius: 8px;">
               <p style="margin: 0; color: #333; font-size: 14px;">
-                <strong>Pickup Location:</strong> Kings Avenue Mall, Paphos, Cyprus
+                ${
+                  fulfillment === "delivery"
+                    ? "<strong>Action:</strong> Ship to the delivery address above within 2–5 business days."
+                    : "<strong>Action:</strong> Confirm pickup time with the customer on WhatsApp."
+                }
               </p>
             </div>
 
