@@ -1,18 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { ArrowDown, Zap, Star, Shield, Truck } from "lucide-react";
+import { ArrowDown, Zap, Star, Shield, Truck, BookOpen } from "lucide-react";
 import Image from "next/image";
+import ShippingGuideModal from "./ShippingGuideModal";
 
 export default function Hero() {
   const { t } = useI18n();
+  const [howToOpen, setHowToOpen] = useState(false);
 
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
+    <>
     <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-cream via-cream to-surface pt-20">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
@@ -55,11 +59,11 @@ export default function Hero() {
               {t("hero.cta")}
             </button>
             <button
-              onClick={() => scrollTo("#how-it-works")}
+              onClick={() => setHowToOpen(true)}
               className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 bg-white/50 px-10 py-4 text-lg font-semibold text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent"
             >
               {t("hero.secondaryCta")}
-              <ArrowDown className="h-4 w-4" />
+              <BookOpen className="h-4 w-4" />
             </button>
           </div>
 
@@ -150,5 +154,12 @@ export default function Hero() {
         </button>
       </motion.div>
     </section>
+    <ShippingGuideModal
+      open={howToOpen}
+      onClose={() => setHowToOpen(false)}
+      initialTab="howTo"
+      singleTab
+    />
+    </>
   );
 }

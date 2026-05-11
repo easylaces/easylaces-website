@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/lib/i18n";
 import { Instagram, Facebook } from "lucide-react";
+import Link from "next/link";
 import Logo from "./Logo";
 
 const NAV_LINKS = [
@@ -20,7 +21,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-cream-dark bg-gradient-to-b from-cream to-surface py-16">
       <div className="mx-auto max-w-container px-4 sm:px-6">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Logo & tagline */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-4 flex items-center gap-2">
@@ -71,6 +72,21 @@ export default function Footer() {
                 WhatsApp
               </a>
             </div>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400">
+              {t("footer.legal")}
+            </h4>
+            <nav className="flex flex-col gap-2">
+              <Link
+                href="/refund-policy"
+                className="text-left text-base text-gray-600 transition-colors hover:text-accent"
+              >
+                {t("footer.refundPolicy")}
+              </Link>
+            </nav>
           </div>
 
           {/* Social */}

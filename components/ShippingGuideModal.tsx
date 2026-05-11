@@ -6,16 +6,28 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Truck, BookOpen } from "lucide-react";
 import Image from "next/image";
 
+type Tab = "shipping" | "howTo";
+
 interface ShippingGuideModalProps {
   open: boolean;
   onClose: () => void;
+  initialTab?: Tab;
+  singleTab?: boolean;
 }
 
-type Tab = "shipping" | "howTo";
-
-export default function ShippingGuideModal({ open, onClose }: ShippingGuideModalProps) {
+export default function ShippingGuideModal({
+  open,
+  onClose,
+  initialTab = "shipping",
+  singleTab = false,
+}: ShippingGuideModalProps) {
   const { t } = useI18n();
-  const [activeTab, setActiveTab] = useState<Tab>("shipping");
+  const [activeTab, setActiveTab] = useState<Tab>(initialTab);
+
+  // Reset to initialTab whenever the modal is opened or initialTab prop changes
+  useEffect(() => {
+    if (open) setActiveTab(initialTab);
+  }, [open, initialTab]);
 
   // Close on Escape
   useEffect(() => {
@@ -62,9 +74,10 @@ export default function ShippingGuideModal({ open, onClose }: ShippingGuideModal
             <div className="flex items-center justify-between border-b border-cream-dark px-6 py-4">
               <h3
                 id="shipping-guide-title"
-                className="text-xl font-bold text-primary"
+                className="flex items-center gap-2 text-xl font-bold text-primary"
               >
-                {t("modal.title")}
+                {singleTab && <BookOpen className="h-5 w-5 text-accent" />}
+                {singleTab ? t("modal.tabHowTo") : t("modal.title")}
               </h3>
               <button
                 onClick={onClose}
@@ -75,31 +88,33 @@ export default function ShippingGuideModal({ open, onClose }: ShippingGuideModal
               </button>
             </div>
 
-            {/* Tabs */}
-            <div className="flex border-b border-cream-dark">
-              <button
-                onClick={() => setActiveTab("shipping")}
-                className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors ${
-                  activeTab === "shipping"
-                    ? "border-b-2 border-accent text-accent"
-                    : "text-gray-500 hover:text-primary"
-                }`}
-              >
-                <Truck className="h-4 w-4" />
-                {t("modal.tabShipping")}
-              </button>
-              <button
-                onClick={() => setActiveTab("howTo")}
-                className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors ${
-                  activeTab === "howTo"
-                    ? "border-b-2 border-accent text-accent"
-                    : "text-gray-500 hover:text-primary"
-                }`}
-              >
-                <BookOpen className="h-4 w-4" />
-                {t("modal.tabHowTo")}
-              </button>
-            </div>
+            {/* Tabs (hidden in single-tab mode) */}
+            {!singleTab && (
+              <div className="flex border-b border-cream-dark">
+                <button
+                  onClick={() => setActiveTab("shipping")}
+                  className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors ${
+                    activeTab === "shipping"
+                      ? "border-b-2 border-accent text-accent"
+                      : "text-gray-500 hover:text-primary"
+                  }`}
+                >
+                  <Truck className="h-4 w-4" />
+                  {t("modal.tabShipping")}
+                </button>
+                <button
+                  onClick={() => setActiveTab("howTo")}
+                  className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold transition-colors ${
+                    activeTab === "howTo"
+                      ? "border-b-2 border-accent text-accent"
+                      : "text-gray-500 hover:text-primary"
+                  }`}
+                >
+                  <BookOpen className="h-4 w-4" />
+                  {t("modal.tabHowTo")}
+                </button>
+              </div>
+            )}
 
             {/* Body */}
             <div className="overflow-y-auto px-6 py-5">

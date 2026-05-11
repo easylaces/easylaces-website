@@ -39,7 +39,7 @@
     "durableTitle": "Durable & Lightweight",
     "durableDesc": "Strong enough for daily wear, yet light and comfortable on any shoe.",
     "heatTitle": "Heat Resistant",
-    "heatDesc": "Maintains shape and durability up to 60 °C (140 °F).",
+    "heatDesc": "Designed for everyday use. Can handle temperatures up to ~60 °C. Avoid leaving in direct sun or hot environments for long periods.",
     "fitTitle": "Universal Fit",
     "fitDesc": "Designed for laces 5–6 mm wide and up to 2 mm thick — fits most sneakers and sports shoes.",
     "safetyTitle": "Safety Tested",
@@ -129,7 +129,9 @@
   "footer": {
     "madeIn": "Made in Cyprus",
     "rights": "© 2026 EasyLaces. All rights reserved.",
-    "quickLinks": "Quick Links"
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "refundPolicy": "Refund Policy"
   },
   "cookie": {
     "message": "We use cookies to improve your experience. By continuing to browse, you agree to our use of cookies.",
@@ -159,6 +161,22 @@
   },
   "whatsapp": {
     "tooltip": "Chat with us"
+  },
+  "refundPolicy": {
+    "title": "Refund Policy",
+    "subtitle": "Our return and refund terms",
+    "intro": "We offer a 15-day return policy.",
+    "policyTitle": "Return terms",
+    "policy1": "You can request a return within 15 days of receiving your order.",
+    "policy2": "To be eligible for a return, the item must be unused and in its original condition.",
+    "policy3": "Refunds apply to the product cost only.",
+    "policy4": "Shipping costs are non-refundable, unless the item is defective or there was an error with your order.",
+    "contact": "If you have any issues, please contact us and we'll be happy to help.",
+    "processedTitle": "After your refund is processed",
+    "processed1": "Your refund has been processed successfully.",
+    "processed2": "Please note that it may take 5–10 business days for the amount to appear in your bank account, depending on your bank.",
+    "processed3": "If you need anything else, feel free to contact us anytime.",
+    "backHome": "Back to Home"
   },
   "modal": {
     "title": "Shipping & Usage Guide",
