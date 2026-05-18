@@ -21,8 +21,7 @@ export interface OrderFormData {
   fullName: string;
   email: string;
   phone: string;
-  color: string;       // used when quantity === 1
-  colorMix: string;    // used when quantity >= 2
+  colors: string[];    // one color id per pack; length === quantity
   quantity: number;
   fulfillment: FulfillmentMode;
   // delivery-only (optional at the type level; validated based on fulfillment):

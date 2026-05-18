@@ -11,12 +11,7 @@ import type { CheckoutRequest } from "@/types";
 
 function getMinPickupDate(): string {
   const date = new Date();
-  let workingDays = 0;
-  while (workingDays < 4) {
-    date.setDate(date.getDate() + 1);
-    const day = date.getDay();
-    if (day !== 0 && day !== 6) workingDays++;
-  }
+  date.setDate(date.getDate() + 4);
   return date.toISOString().split("T")[0];
 }
 
@@ -27,8 +22,7 @@ export async function POST(request: NextRequest) {
       fullName,
       email,
       phone,
-      color,
-      colorMix,
+      colors,
       quantity,
       fulfillment,
       address,
@@ -56,33 +50,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Color vs color mix — conditional on quantity
-    let colorLabel: string;
-    if (quantity === 1) {
-      const colorObj = COLORS.find((c) => c.id === color);
-      if (!colorObj) {
-        return NextResponse.json(
-          { error: "Invalid color selected", code: "INVALID_COLOR" },
-          { status: 400 }
-        );
-      }
-      colorLabel = colorObj.name[locale || "en"];
-    } else {
-      const mix = (colorMix || "").trim();
-      if (mix.length < 3) {
-        return NextResponse.json(
-          { error: "Color mix is required for multi-pack bundles", code: "MISSING_COLOR_MIX" },
-          { status: 400 }
-        );
-      }
-      if (mix.length > 300) {
-        return NextResponse.json(
-          { error: "Color mix is too long (max 300 characters)", code: "COLOR_MIX_TOO_LONG" },
-          { status: 400 }
-        );
-      }
-      colorLabel = mix;
+    // One color per pack
+    if (!Array.isArray(colors) || colors.length !== quantity) {
+      return NextResponse.json(
+        { error: "Colors must be provided for every pack", code: "INVALID_COLORS" },
+        { status: 400 }
+      );
     }
+    const colorObjs = colors.map((id) => COLORS.find((c) => c.id === id));
+    if (colorObjs.some((c) => !c)) {
+      return NextResponse.json(
+        { error: "Invalid color selected", code: "INVALID_COLOR" },
+        { status: 400 }
+      );
+    }
+    const lang = locale || "en";
+    const colorLabel =
+      quantity === 1
+        ? colorObjs[0]!.name[lang]
+        : colorObjs.map((c, i) => `Pack ${i + 1}: ${c!.name[lang]}`).join(", ");
 
     // Fulfillment-specific validation
     if (fulfillment === "delivery") {
@@ -108,7 +94,7 @@ export async function POST(request: NextRequest) {
       const minDate = getMinPickupDate();
       if (pickupDate < minDate) {
         return NextResponse.json(
-          { error: "Pickup date must be at least 4 working days from today", code: "DATE_TOO_EARLY" },
+          { error: "Pickup date must be at least 4 days from today", code: "DATE_TOO_EARLY" },
           { status: 400 }
         );
       }
@@ -148,7 +134,7 @@ export async function POST(request: NextRequest) {
         price_data: {
           currency: "eur",
           product_data: {
-            name: "Home Delivery (2–5 business days)",
+            name: "Home Delivery (4 days)",
           },
           unit_amount: Math.round(SHIPPING_FEE * 100),
         },

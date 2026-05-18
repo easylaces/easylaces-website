@@ -1,10 +1,9 @@
 {
   "meta": {
     "title": "EasyLaces Clip — Never Tie Your Shoes Again",
-    "description": "Home delivery across Cyprus in 2–5 business days. Pickup at Kings Avenue Mall, Paphos by arrangement."
+    "description": "Home delivery across Cyprus in 4 days. Pickup at Kings Avenue Mall, Paphos by arrangement."
   },
   "header": {
-    "howItWorks": "How It Works",
     "features": "Features",
     "colors": "Bundles",
     "reviews": "Reviews",
@@ -13,21 +12,11 @@
   },
   "hero": {
     "headline": "Never Tie Your Shoes Again",
-    "subheadline": "Delivered across Cyprus in 2–5 business days, or pickup at Kings Avenue Mall by arrangement.",
+    "subheadline": "Delivered across Cyprus in 4 days, or pickup at Kings Avenue Mall by arrangement.",
     "cta": "Order Now — €6.99",
     "secondaryCta": "See How It Works",
     "badge": "Home delivery across Cyprus",
     "trustDelivery": "Home delivery"
-  },
-  "howItWorks": {
-    "title": "How It Works",
-    "subtitle": "Three simple steps to lace-free shoes",
-    "step1Title": "Clip It On",
-    "step1Desc": "Attach the EasyLaces clip to your shoe — fits any shoe type instantly.",
-    "step2Title": "Pull & Lock",
-    "step2Desc": "Pull the laces through and lock them in place with a satisfying click.",
-    "step3Title": "Done! Walk Away",
-    "step3Desc": "No knots, no hassle. Your shoes are secure and ready to go."
   },
   "features": {
     "title": "Why EasyLaces?",
@@ -63,7 +52,7 @@
     "pairs": "pairs",
     "pair": "pair",
     "save": "Save",
-    "deliveryInfo": "🚚 Home Delivery (2–5 business days) — €4.00",
+    "deliveryInfo": "🚚 Home Delivery (4 days) — €4.00",
     "freeShippingBadge": "FREE SHIPPING",
     "readMore": "Read more"
   },
@@ -94,19 +83,19 @@
     "notesPlaceholder": "Any special requests or notes...",
     "total": "Total",
     "payButton": "Pay Now with Stripe",
-    "processingTime": "Please allow 4 working days for preparation. We'll contact you on WhatsApp once your order is on its way.",
+    "processingTime": "Please allow 4 days for preparation. We'll contact you on WhatsApp once your order is on its way.",
     "pickupNote": "Pickup at Kings Avenue Mall is by arrangement on WhatsApp.",
     "confirmNote": "You will receive a Stripe confirmation email after payment.",
     "required": "This field is required",
     "invalidEmail": "Please enter a valid email address",
     "invalidPhone": "Please enter a valid phone number",
     "selectColor": "Please select a color",
-    "dateTooEarly": "Please select a date at least 4 working days from today",
+    "dateTooEarly": "Please select a date at least 4 days from today",
     "processing": "Processing...",
     "error": "Something went wrong. Please try again.",
     "fulfillmentLabel": "How would you like to receive your order?",
     "deliveryOption": "Home Delivery",
-    "deliveryOptionDesc": "2–5 business days (Cyprus)",
+    "deliveryOptionDesc": "4 days (Cyprus)",
     "pickupOption": "Pickup by arrangement",
     "pickupOptionDesc": "Kings Avenue Mall, Paphos",
     "addressLabel": "Delivery Address",
@@ -115,16 +104,13 @@
     "postalCodeLabel": "Postal Code",
     "countryLabel": "Country",
     "pickupConfirmNote": "We'll contact you on WhatsApp to confirm a pickup time.",
-    "colorMixLabel": "Choose your colors",
-    "colorMixPlaceholder": "e.g. 2 Black, 1 Grey, 1 White",
-    "colorMixHelper": "Tell us how many packs of each color you want (total: {count} packs).",
+    "colorsLabel": "Pick a color for each pack",
+    "packLabel": "Pack {n}",
     "shippingFeeLabel": "Shipping",
     "freeShippingChip": "FREE shipping with 4x",
     "addressRequired": "Please enter a delivery address",
     "cityRequired": "Please enter a city",
-    "postalCodeRequired": "Please enter a postal code",
-    "colorMixRequired": "Please describe your color selection",
-    "colorMixTooShort": "Please give a bit more detail (at least 3 characters)"
+    "postalCodeRequired": "Please enter a postal code"
   },
   "footer": {
     "madeIn": "Made in Cyprus",
@@ -174,7 +160,7 @@
     "contact": "If you have any issues, please contact us and we'll be happy to help.",
     "processedTitle": "After your refund is processed",
     "processed1": "Your refund has been processed successfully.",
-    "processed2": "Please note that it may take 5–10 business days for the amount to appear in your bank account, depending on your bank.",
+    "processed2": "Please note that it may take 5–10 days for the amount to appear in your bank account, depending on your bank.",
     "processed3": "If you need anything else, feel free to contact us anytime.",
     "backHome": "Back to Home"
   },
@@ -183,7 +169,7 @@
     "close": "Close",
     "tabShipping": "Shipping info",
     "tabHowTo": "How to use it",
-    "shippingBullet1": "🚚 Home Delivery: 2–5 business days.",
+    "shippingBullet1": "🚚 Home Delivery: 4 days.",
     "shippingBullet2": "€4.00 flat fee for all orders. Free with the 4x bundle.",
     "shippingBullet3": "Delivery across Cyprus only.",
     "shippingBullet4": "🏬 Pickup by arrangement: available at Kings Avenue Mall, Paphos. Choose 'Pickup' at checkout and we'll confirm a time on WhatsApp.",

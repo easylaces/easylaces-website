@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from "react";
 import { useI18n } from "@/lib/i18n";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingBag,
   Check,
@@ -26,8 +26,7 @@ export default function OrderForm() {
     fullName: "",
     email: "",
     phone: "",
-    color: COLORS[0].id,
-    colorMix: "",
+    colors: [COLORS[0].id],
     quantity: 1,
     fulfillment: "delivery",
     address: "",
@@ -52,15 +51,33 @@ export default function OrderForm() {
     return () => window.removeEventListener("easylaces-select-bundle", handler);
   }, []);
 
-  // Min date = 4 working days from now
+  // Keep colors array length in sync with quantity (preserve picks, fill new slots with default)
+  useEffect(() => {
+    setForm((prev) => {
+      if (prev.colors.length === prev.quantity) return prev;
+      const next = prev.colors.slice(0, prev.quantity);
+      while (next.length < prev.quantity) next.push(COLORS[0].id);
+      return { ...prev, colors: next };
+    });
+  }, [form.quantity]);
+
+  const setPackColor = (index: number, colorId: string) => {
+    setForm((prev) => {
+      const next = [...prev.colors];
+      next[index] = colorId;
+      return { ...prev, colors: next };
+    });
+    setErrors((prev) => {
+      if (!prev.colors) return prev;
+      const next = { ...prev };
+      delete next.colors;
+      return next;
+    });
+  };
+
   const getMinPickupDate = () => {
     const date = new Date();
-    let workingDays = 0;
-    while (workingDays < 4) {
-      date.setDate(date.getDate() + 1);
-      const day = date.getDay();
-      if (day !== 0 && day !== 6) workingDays++;
-    }
+    date.setDate(date.getDate() + 4);
     return date.toISOString().split("T")[0];
   };
   const minDate = getMinPickupDate();
@@ -90,16 +107,12 @@ export default function OrderForm() {
       newErrors.phone = t("order.invalidPhone");
     }
 
-    // Color vs color mix — conditional on quantity
-    if (form.quantity === 1) {
-      if (!form.color) newErrors.color = t("order.selectColor");
-    } else {
-      const mix = form.colorMix.trim();
-      if (!mix) {
-        newErrors.colorMix = t("order.colorMixRequired");
-      } else if (mix.length < 3) {
-        newErrors.colorMix = t("order.colorMixTooShort");
-      }
+    // One color per pack
+    if (
+      form.colors.length !== form.quantity ||
+      form.colors.some((id) => !COLORS.find((c) => c.id === id))
+    ) {
+      newErrors.colors = t("order.selectColor");
     }
 
     // Fulfillment-specific fields
@@ -344,81 +357,103 @@ export default function OrderForm() {
               </div>
             </div>
 
-            {/* Color Selection (1x) or Mix (2x+) */}
+            {/* Color Selection — one palette per pack */}
             <div className="mb-5">
-              {form.quantity === 1 ? (
-                <>
-                  <label className="mb-2 block text-base font-medium text-primary">
-                    {t("order.color")} *
-                  </label>
-                  <div className="flex flex-wrap gap-3">
-                    {COLORS.map((color) => (
-                      <button
-                        key={color.id}
-                        type="button"
-                        onClick={() =>
-                          setForm((prev) => ({ ...prev, color: color.id }))
-                        }
-                        className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all ${
-                          form.color === color.id
-                            ? "border-accent scale-110"
-                            : "border-transparent hover:scale-105"
-                        }`}
-                        style={{ backgroundColor: color.hex }}
-                        title={color.name[locale]}
+              <label className="mb-3 block text-base font-medium text-primary">
+                {form.quantity === 1 ? t("order.color") : t("order.colorsLabel")} *
+              </label>
+              <div
+                className={`grid gap-3 ${
+                  form.quantity === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
+                }`}
+              >
+                <AnimatePresence initial={false} mode="popLayout">
+                  {form.colors.map((selectedId, index) => {
+                    const selected = COLORS.find((c) => c.id === selectedId);
+                    // Alternate transform origin so cards look like they "split off" from their neighbour
+                    const originX = index % 2 === 0 ? 0 : 1;
+                    return (
+                      <motion.div
+                        key={`pack-${index}`}
+                        layout
+                        style={{ originX, originY: 0.5 }}
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.7 }}
+                        transition={{
+                          layout: { type: "spring", stiffness: 260, damping: 30 },
+                          opacity: { duration: 0.28, ease: "easeOut" },
+                          scale: {
+                            type: "spring",
+                            stiffness: 280,
+                            damping: 26,
+                            delay: index * 0.05,
+                          },
+                        }}
+                        className="rounded-xl border border-gray-200 bg-white/70 p-4"
                       >
-                        {form.color === color.id && (
-                          <Check
-                            className="h-4 w-4"
-                            style={{
-                              color:
-                                color.id === "white" ? "#1A1A1A" : "#FFFFFF",
-                            }}
-                          />
+                        {form.quantity > 1 && (
+                          <div className="mb-3 flex items-center justify-between">
+                            <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 text-xs font-bold text-accent">
+                                {index + 1}
+                              </span>
+                              {t("order.packLabel").replace("{n}", String(index + 1))}
+                            </span>
+                            {selected && (
+                              <span className="text-xs text-gray-500">
+                                {selected.name[locale]}
+                              </span>
+                            )}
+                          </div>
                         )}
-                        {color.id === "white" && (
-                          <span className="absolute inset-0 rounded-full border border-gray-200" />
+                        <div className="flex flex-wrap gap-3">
+                          {COLORS.map((color) => {
+                            const isSelected = selectedId === color.id;
+                            return (
+                              <button
+                                key={color.id}
+                                type="button"
+                                onClick={() => setPackColor(index, color.id)}
+                                className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all ${
+                                  isSelected
+                                    ? "border-accent scale-110"
+                                    : "border-transparent hover:scale-105"
+                                }`}
+                                style={{ backgroundColor: color.hex }}
+                                title={color.name[locale]}
+                              >
+                                {isSelected && (
+                                  <Check
+                                    className="h-4 w-4"
+                                    style={{
+                                      color:
+                                        color.id === "white" ? "#1A1A1A" : "#FFFFFF",
+                                    }}
+                                  />
+                                )}
+                                {color.id === "white" && (
+                                  <span className="absolute inset-0 rounded-full border border-gray-200" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {form.quantity === 1 && selected && (
+                          <p className="mt-2 text-sm text-gray-500">
+                            {selected.name[locale]}
+                          </p>
                         )}
-                      </button>
-                    ))}
-                  </div>
-                  {form.color && (
-                    <p className="mt-2 text-sm text-gray-500">
-                      {COLORS.find((c) => c.id === form.color)?.name[locale]}
-                    </p>
-                  )}
-                  {errors.color && (
-                    <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
-                      <AlertCircle className="h-3 w-3" />
-                      {errors.color}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <>
-                  <label className="mb-2 block text-base font-medium text-primary">
-                    {t("order.colorMixLabel")} *
-                  </label>
-                  <input
-                    type="text"
-                    value={form.colorMix}
-                    maxLength={200}
-                    placeholder={t("order.colorMixPlaceholder")}
-                    onChange={(e) =>
-                      setForm((prev) => ({ ...prev, colorMix: e.target.value }))
-                    }
-                    className={inputClass("colorMix")}
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    {t("order.colorMixHelper").replace("{count}", String(form.quantity))}
-                  </p>
-                  {errors.colorMix && (
-                    <p className="mt-1 flex items-center gap-1 text-sm text-red-500">
-                      <AlertCircle className="h-3 w-3" />
-                      {errors.colorMix}
-                    </p>
-                  )}
-                </>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+              {errors.colors && (
+                <p className="mt-2 flex items-center gap-1 text-sm text-red-500">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.colors}
+                </p>
               )}
             </div>
 

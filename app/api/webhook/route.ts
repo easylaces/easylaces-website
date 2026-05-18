@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
                 <td style="padding: 12px 0; color: #555;">${escapeHtml(customerPhone)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 12px 0; font-weight: bold; color: #333;">Color / Mix</td>
+                <td style="padding: 12px 0; font-weight: bold; color: #333;">Colors</td>
                 <td style="padding: 12px 0; color: #555;">${escapeHtml(colorLabel)}</td>
               </tr>
               <tr style="border-bottom: 1px solid #eee;">
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
               <p style="margin: 0; color: #333; font-size: 14px;">
                 ${
                   fulfillment === "delivery"
-                    ? "<strong>Action:</strong> Ship to the delivery address above within 2–5 business days."
+                    ? "<strong>Action:</strong> Ship to the delivery address above within 4 days."
                     : "<strong>Action:</strong> Confirm pickup time with the customer on WhatsApp."
                 }
               </p>

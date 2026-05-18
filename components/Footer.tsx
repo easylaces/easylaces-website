@@ -6,7 +6,6 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 const NAV_LINKS = [
-  { key: "howItWorks", href: "#how-it-works" },
   { key: "order", href: "#order" },
   { key: "pickup", href: "#find-us" },
 ] as const;

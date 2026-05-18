@@ -146,7 +146,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <button
-          onClick={() => scrollTo("#how-it-works")}
+          onClick={() => scrollTo("#features")}
           className="animate-bounce text-gray-400 transition-colors hover:text-accent"
           aria-label="Scroll down"
         >
