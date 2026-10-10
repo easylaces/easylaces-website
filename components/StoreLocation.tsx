@@ -8,16 +8,16 @@ export default function StoreLocation() {
   const { t } = useI18n();
 
   return (
-    <section id="find-us" className="bg-cream py-24 sm:py-32">
+    <section id="find-us" className="bg-cream py-16 sm:py-32">
       <div className="mx-auto max-w-container px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
         >
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent">
+          <span className="mb-3 inline-block text-base font-medium text-gray-500">
             {t("location.subtitle")}
           </span>
           <h2 className="text-4xl font-bold text-primary sm:text-5xl">

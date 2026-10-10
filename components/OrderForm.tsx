@@ -184,22 +184,16 @@ export default function OrderForm() {
   };
 
   return (
-    <section id="order" className="relative bg-cream-dark py-24 sm:py-32">
-      {/* Background accent */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -right-32 top-0 h-[400px] w-[400px] rounded-full bg-accent/[0.03]" />
-        <div className="absolute -left-20 bottom-0 h-[300px] w-[300px] rounded-full bg-amber-100/20" />
-      </div>
-
+    <section id="order" className="relative bg-cream-dark py-16 sm:py-32">
       <div className="relative mx-auto max-w-container px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
         >
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent">
+          <span className="mb-3 inline-block text-base font-medium text-gray-500">
             {t("order.subtitle")}
           </span>
           <h2 className="text-4xl font-bold text-primary sm:text-5xl">
@@ -334,7 +328,7 @@ export default function OrderForm() {
                     onClick={() =>
                       setForm((prev) => ({ ...prev, quantity: b.quantity }))
                     }
-                    className={`relative rounded-xl border-2 px-3 py-3 text-center transition-all ${
+                    className={`relative rounded-2xl border-2 px-1 py-3 text-center transition-all ${
                       form.quantity === b.quantity
                         ? "border-accent bg-accent/[0.06] shadow-sm"
                         : "border-gray-200 bg-white/70 hover:border-accent/50"
@@ -345,7 +339,7 @@ export default function OrderForm() {
                     }`}>
                       {b.quantity}x
                     </p>
-                    <p className="text-[11px] text-gray-500">{b.quantity * 2} {t("product.pairsCount")}</p>
+                    <p className="whitespace-nowrap text-xs text-gray-500">{b.quantity * 4} {t("product.clipsCount")}</p>
                     <p className="text-xs font-semibold text-gray-600">€{b.price.toFixed(2)}</p>
                     {b.bestSeller && (
                       <span className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">
@@ -618,7 +612,7 @@ export default function OrderForm() {
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-5 text-xl font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+              className="flex w-full items-center justify-center gap-3 rounded-[1.25rem] bg-accent px-5 py-4 text-base font-semibold text-white shadow-lg shadow-accent/25 transition-colors duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/30 disabled:cursor-not-allowed disabled:opacity-60 sm:text-lg"
             >
               {loading ? (
                 <>
@@ -627,8 +621,9 @@ export default function OrderForm() {
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="h-5 w-5" />
-                  {t("order.payButton")} — €{total}
+                  <ShoppingBag className="h-5 w-5 shrink-0" />
+                  <span className="whitespace-nowrap">{t("order.payButton")}</span>
+                  <span className="ml-auto font-display text-xl font-extrabold [font-stretch:115%] sm:text-2xl">€{total}</span>
                 </>
               )}
             </button>

@@ -31,16 +31,16 @@ export default function ProductSelector() {
   };
 
   return (
-    <section id="colors" className="bg-cream py-24 sm:py-32">
+    <section id="colors" className="bg-cream py-16 sm:py-32">
       <div className="mx-auto max-w-container px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
         >
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent">
+          <span className="mb-3 inline-block text-base font-medium text-gray-500">
             {t("product.subtitle")}
           </span>
           <h2 className="text-4xl font-bold text-primary sm:text-5xl">
@@ -58,7 +58,7 @@ export default function ProductSelector() {
             className="flex flex-col items-center gap-4"
           >
             {/* Main image */}
-            <div className="relative h-[350px] w-full max-w-[450px] overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 sm:h-[450px]">
+            <div className="relative h-[350px] w-full max-w-[450px] overflow-hidden rounded-[1.75rem] shadow-lg ring-1 ring-black/5 sm:h-[450px]">
               <Image
                 src={PRODUCT_IMAGES[activeImage]}
                 alt="EasyLacesCY Clip"
@@ -123,9 +123,9 @@ export default function ProductSelector() {
                   <button
                     key={bundle.quantity}
                     onClick={() => scrollToOrder(bundle.quantity)}
-                    className={`group relative flex w-full items-center justify-between rounded-2xl border-2 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5 ${
+                    className={`group relative flex w-full items-center justify-between gap-3 rounded-[1.25rem] border-2 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5 ${
                       bundle.bestSeller
-                        ? "border-accent bg-accent/[0.06] shadow-lg ring-1 ring-accent/20 scale-[1.02]"
+                        ? "border-accent bg-accent/[0.06] shadow-lg ring-1 ring-accent/20 sm:scale-[1.02]"
                         : "border-gray-200 bg-white/70 hover:border-accent/50"
                     }`}
                   >
@@ -138,8 +138,8 @@ export default function ProductSelector() {
                     )}
 
                     {/* Left: quantity & details */}
-                    <div className="flex items-center gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl text-lg font-extrabold ${
+                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+                      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-extrabold ${
                         bundle.bestSeller
                           ? "bg-accent text-white shadow-sm"
                           : "bg-cream-dark text-primary"
@@ -148,7 +148,10 @@ export default function ProductSelector() {
                       </div>
                       <div>
                         <p className="text-base font-semibold text-primary">
-                          {clips} {t("product.clipsCount")} · {pairs} {t("product.pairsCount")}
+                          {clips} {t("product.clipsCount")}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {pairs} {t("product.pairsCount")}
                         </p>
                         {hasSavings && (
                           <p className={`text-sm font-bold ${
@@ -167,21 +170,21 @@ export default function ProductSelector() {
                     </div>
 
                     {/* Right: price */}
-                    <div className="text-right">
-                      <p className={`text-2xl font-extrabold ${
+                    <div className="shrink-0 text-right">
+                      <p className={`font-display text-2xl font-extrabold [font-stretch:115%] ${
                         bundle.bestSeller ? "text-accent" : "text-primary"
                       }`}>
                         €{bundle.price.toFixed(2)}
                       </p>
                       {bundle.quantity > 1 && (
-                        <p className="text-xs text-gray-400">
+                        <p className="whitespace-nowrap text-xs text-gray-400">
                           €{(bundle.price / bundle.quantity).toFixed(2)} {t("product.perPack")}
                         </p>
                       )}
                     </div>
 
                     {/* Hover arrow */}
-                    <div className="ml-3 text-gray-300 transition-colors group-hover:text-accent">
+                    <div className="hidden text-gray-300 transition-colors group-hover:text-accent sm:block">
                       <Check className="h-5 w-5" />
                     </div>
                   </button>

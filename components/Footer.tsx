@@ -21,12 +21,12 @@ export default function Footer() {
   return (
     <footer className="border-t border-cream-dark bg-gradient-to-b from-cream to-surface py-16">
       <div className="mx-auto max-w-container px-4 sm:px-6">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-5">
           {/* Logo & tagline */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <div className="mb-4 flex items-center gap-2">
               <Logo size={32} />
-              <span className="text-2xl font-bold text-primary">EasyLacesCY</span>
+              <span className="font-display text-2xl font-bold text-primary [font-stretch:125%]">EasyLacesCY</span>
             </div>
             <p className="text-base text-gray-500">
               {t("location.address")}

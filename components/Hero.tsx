@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { ArrowDown, Zap, Star, Shield, Truck, BookOpen } from "lucide-react";
+import { Star, Shield, Truck, BookOpen } from "lucide-react";
 import Image from "next/image";
 import ShippingGuideModal from "./ShippingGuideModal";
 
@@ -17,142 +17,90 @@ export default function Hero() {
 
   return (
     <>
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-cream via-cream to-surface pt-20">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-accent/[0.04]" />
-        <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-amber-200/20" />
-        <div className="absolute left-1/2 top-1/3 h-[200px] w-[200px] -translate-x-1/2 rounded-full bg-accent/[0.03]" />
-      </div>
+    <section className="bg-cream px-3 pb-3 pt-[4.5rem] sm:px-4 sm:pt-20">
+      {/* Photo panel, same treatment as /links. Photo: Unsplash 1553808373-92b0bcc3af65 */}
+      <div className="relative isolate mx-auto flex min-h-[calc(100svh-5.5rem)] max-w-[1400px] overflow-hidden rounded-[1.75rem] sm:min-h-[calc(100svh-6.5rem)] sm:rounded-[2.25rem]">
+        <Image
+          src="/images/links-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-[50%_40%] lg:object-[50%_55%]"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/35 to-black/10 lg:bg-gradient-to-r lg:from-black/80 lg:via-black/40 lg:to-black/0" />
 
-      <div className="relative mx-auto grid max-w-container gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
-        {/* Text Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col justify-center"
-        >
+        <div className="mx-auto flex w-full max-w-container items-end gap-12 px-5 pb-8 pt-24 sm:px-10 sm:pb-12 lg:items-center lg:justify-between">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent"
-          >
-            <Zap className="h-4 w-4 fill-accent" />
-            <span>{t("hero.badge")}</span>
-          </motion.div>
-
-          <h1 className="mb-6 text-5xl font-extrabold leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
-            {t("hero.headline")}
-          </h1>
-
-          <p className="mb-10 max-w-lg text-lg leading-relaxed text-gray-500 sm:text-xl">
-            {t("hero.subheadline")}
-          </p>
-
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row">
-            <button
-              onClick={() => scrollTo("#order")}
-              className="inline-flex items-center justify-center rounded-full bg-accent px-10 py-4 text-lg font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent/30"
-            >
-              {t("hero.cta")}
-            </button>
-            <button
-              onClick={() => setHowToOpen(true)}
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 bg-white/50 px-10 py-4 text-lg font-semibold text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:text-accent"
-            >
-              {t("hero.secondaryCta")}
-              <BookOpen className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-6 text-sm text-gray-400"
+            transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] }}
+            className="max-w-2xl"
           >
-            <span className="flex items-center gap-1.5">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <span className="font-medium text-gray-600">5.0/5</span> rating
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+              <Truck className="h-4 w-4" />
+              {t("hero.badge")}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Shield className="h-4 w-4 text-green-500" />
-              Secure checkout
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Truck className="h-4 w-4 text-accent" />
-              {t("hero.trustDelivery")}
-            </span>
-          </motion.div>
-        </motion.div>
 
-        {/* Product Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center justify-center"
-        >
-          <div className="relative">
-            {/* Glow behind image */}
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-accent/10 to-amber-100/40 blur-2xl" />
-            <div className="relative h-[400px] w-[320px] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5 sm:h-[520px] sm:w-[400px]">
+            <h1 className="mb-5 text-[2.75rem] font-extrabold leading-[0.95] text-white [font-stretch:145%] sm:text-6xl lg:text-7xl">
+              {t("hero.headline")}
+            </h1>
+
+            <p className="mb-8 max-w-lg text-lg leading-relaxed text-white/80">
+              {t("hero.subheadline")}
+            </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                onClick={() => scrollTo("#order")}
+                className="inline-flex items-center justify-center rounded-[1.25rem] bg-accent px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/60"
+              >
+                {t("hero.cta")}
+              </button>
+              <button
+                onClick={() => setHowToOpen(true)}
+                className="inline-flex items-center justify-center gap-2 rounded-[1.25rem] bg-white px-8 py-4 text-lg font-semibold text-primary transition-colors hover:bg-cream focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/60"
+              >
+                <BookOpen className="h-5 w-5" />
+                {t("hero.secondaryCta")}
+              </button>
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/75">
+              <span className="flex items-center gap-1.5">
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                5.0/5 rating
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Shield className="h-4 w-4" />
+                Secure checkout
+              </span>
+            </div>
+          </motion.div>
+
+          {/* The actual product, desktop only: the background shows the problem, this shows the fix */}
+          <motion.figure
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}
+            className="hidden w-[260px] shrink-0 overflow-hidden rounded-[1.25rem] bg-white lg:block"
+          >
+            <div className="relative aspect-[3/4]">
               <Image
                 src="/images/hero-closeup.jpg"
-                alt="EasyLacesCY Clip — Clip & Go, clean laces, clean style"
+                alt="EasyLacesCY Clip on a white sneaker"
                 fill
                 className="object-cover object-top"
-                priority
-                sizes="(max-width: 640px) 320px, 400px"
+                sizes="260px"
               />
             </div>
-            {/* Floating price badge */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="absolute -bottom-5 -right-5 rounded-2xl border border-white/60 bg-white p-5 shadow-xl"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Only</p>
-              <p className="text-3xl font-extrabold text-accent">€6.99</p>
-              <p className="text-xs text-gray-400">per pair</p>
-            </motion.div>
-            {/* Floating rating badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute -left-4 top-8 flex items-center gap-2 rounded-xl border border-white/60 bg-white px-4 py-2.5 shadow-xl"
-            >
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <span className="text-sm font-bold text-primary">5.0</span>
-            </motion.div>
-          </div>
-        </motion.div>
+            <figcaption className="flex items-baseline justify-between px-4 py-3">
+              <span className="font-display text-2xl font-extrabold text-primary [font-stretch:125%]">€6.99</span>
+              <span className="text-sm text-gray-500">pack of 4 clips</span>
+            </figcaption>
+          </motion.figure>
+        </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <button
-          onClick={() => scrollTo("#features")}
-          className="animate-bounce text-gray-400 transition-colors hover:text-accent"
-          aria-label="Scroll down"
-        >
-          <ArrowDown className="h-6 w-6" />
-        </button>
-      </motion.div>
     </section>
     <ShippingGuideModal
       open={howToOpen}

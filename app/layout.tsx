@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+
+// Wide display face for headings; has Greek, unlike most wide grotesques.
+const display = Roboto_Flex({
+  subsets: ["latin", "greek"],
+  axes: ["wdth"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: "EasyLacesCY Clip — Never Tie Your Shoes Again",
@@ -39,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${display.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

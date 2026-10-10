@@ -22,7 +22,7 @@ export default function RefundPolicyPage() {
             transition={{ duration: 0.5 }}
             className="mb-10 text-center"
           >
-            <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent">
+            <span className="mb-3 inline-block text-base font-medium text-gray-500">
               {t("refundPolicy.subtitle")}
             </span>
             <h1 className="text-4xl font-bold text-primary sm:text-5xl">

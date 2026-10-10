@@ -115,7 +115,7 @@ function GoogleReviewCard({ review, index }: { review: ReviewData; index: number
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="group relative overflow-hidden rounded-2xl border border-cream-dark bg-cream p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="group relative h-full overflow-hidden rounded-[1.25rem] border border-cream-dark bg-cream p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
       <span className="absolute -right-2 -top-4 text-7xl font-bold leading-none text-accent/[0.06]">&ldquo;</span>
 
@@ -161,7 +161,7 @@ function StaticReviewCard({ review, index, locale, verifiedLabel }: {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className={`group relative overflow-hidden rounded-2xl border border-cream-dark bg-cream p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+      className={`group relative h-full overflow-hidden rounded-[1.25rem] border border-cream-dark bg-cream p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
         index === 0 ? "sm:col-span-2 lg:col-span-1" : ""
       }`}
     >
@@ -213,16 +213,16 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section id="reviews" className="bg-cream-dark py-24 sm:py-32">
+    <section id="reviews" className="bg-cream-dark py-16 sm:py-32">
       <div className="mx-auto max-w-container px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
         >
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-accent">
+          <span className="mb-3 inline-block text-base font-medium text-gray-500">
             {t("reviews.subtitle")}
           </span>
           <h2 className="text-4xl font-bold text-primary sm:text-5xl">
@@ -241,19 +241,23 @@ export default function Reviews() {
           )}
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile: swipeable row instead of six stacked cards */}
+        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-3">
           {useGoogle
             ? googleReviews.map((review, i) => (
-                <GoogleReviewCard key={review.time} review={review} index={i} />
+                <div key={review.time} className="w-[85%] shrink-0 snap-center sm:w-auto">
+                  <GoogleReviewCard review={review} index={i} />
+                </div>
               ))
             : staticReviews.map((review, i) => (
-                <StaticReviewCard
-                  key={review.id}
-                  review={review}
-                  index={i}
-                  locale={locale}
-                  verifiedLabel={t("reviews.verified")}
-                />
+                <div key={review.id} className="w-[85%] shrink-0 snap-center sm:w-auto">
+                  <StaticReviewCard
+                    review={review}
+                    index={i}
+                    locale={locale}
+                    verifiedLabel={t("reviews.verified")}
+                  />
+                </div>
               ))
           }
         </div>
