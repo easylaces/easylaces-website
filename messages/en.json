@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "EasyLaces Clip — Never Tie Your Shoes Again",
+    "title": "EasyLacesCY Clip — Never Tie Your Shoes Again",
     "description": "Home delivery across Cyprus in 4 days. Pickup at Kings Avenue Mall, Paphos by arrangement."
   },
   "header": {
@@ -19,7 +19,7 @@
     "trustDelivery": "Home delivery"
   },
   "features": {
-    "title": "Why EasyLaces?",
+    "title": "Why EasyLacesCY?",
     "subtitle": "Designed for comfort, built to last",
     "ecoTitle": "Eco-Friendly",
     "ecoDesc": "Made from recyclable, biodegradable PLA+ material — safe for everyday use.",
@@ -39,7 +39,7 @@
   "product": {
     "title": "Bundle & Save",
     "subtitle": "More clips, better value",
-    "name": "EasyLaces Clip",
+    "name": "EasyLacesCY Clip",
     "price": "€6.99",
     "specs": "Universal fit • Durable polymer • Fits all shoe types",
     "clipsCount": "clips",
@@ -71,7 +71,7 @@
     "notAStore": "We are not a physical store. Pickup is arranged on request — message us on WhatsApp to set a time."
   },
   "order": {
-    "title": "Order Your EasyLaces",
+    "title": "Order Your EasyLacesCY",
     "subtitle": "Fill in your details and pay securely with Stripe",
     "fullName": "Full Name",
     "email": "Email Address",
@@ -114,7 +114,7 @@
   },
   "footer": {
     "madeIn": "Made in Cyprus",
-    "rights": "© 2026 EasyLaces. All rights reserved.",
+    "rights": "© 2026 EasyLacesCY. All rights reserved.",
     "quickLinks": "Quick Links",
     "legal": "Legal",
     "refundPolicy": "Refund Policy"

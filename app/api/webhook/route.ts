@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: "onboarding@resend.dev",
         to: process.env.ORDER_NOTIFICATION_EMAIL!,
-        subject: `🛒 New EasyLaces Order — ${customerName}`,
+        subject: `🛒 New EasyLacesCY Order — ${customerName}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #2563EB; border-bottom: 2px solid #2563EB; padding-bottom: 10px;">
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
             </div>
 
             <p style="margin-top: 20px; color: #999; font-size: 12px;">
-              This is an automated notification from EasyLaces.
+              This is an automated notification from EasyLacesCY.
             </p>
           </div>
         `,

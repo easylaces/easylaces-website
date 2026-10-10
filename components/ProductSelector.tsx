@@ -61,7 +61,7 @@ export default function ProductSelector() {
             <div className="relative h-[350px] w-full max-w-[450px] overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 sm:h-[450px]">
               <Image
                 src={PRODUCT_IMAGES[activeImage]}
-                alt="EasyLaces Clip"
+                alt="EasyLacesCY Clip"
                 fill
                 className="object-cover transition-all duration-500"
                 sizes="(max-width: 1024px) 100vw, 50vw"

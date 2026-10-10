@@ -3,11 +3,11 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "EasyLaces Clip — Never Tie Your Shoes Again",
+  title: "EasyLacesCY Clip — Never Tie Your Shoes Again",
   description:
     "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €6.99.",
   keywords: [
-    "EasyLaces",
+    "EasyLacesCY",
     "no-tie laces",
     "shoe clip",
     "Paphos",
@@ -16,17 +16,17 @@ export const metadata: Metadata = {
     "clip-on laces",
   ],
   openGraph: {
-    title: "EasyLaces Clip — Never Tie Your Shoes Again",
+    title: "EasyLacesCY Clip — Never Tie Your Shoes Again",
     description:
       "The revolutionary clip-on device that makes lacing instant. Available at Kings Avenue Mall, Paphos, Cyprus. Only €6.99.",
     type: "website",
     locale: "en_US",
     alternateLocale: "el_GR",
-    siteName: "EasyLaces",
+    siteName: "EasyLacesCY",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EasyLaces Clip — Never Tie Your Shoes Again",
+    title: "EasyLacesCY Clip — Never Tie Your Shoes Again",
     description:
       "The revolutionary clip-on device that makes lacing instant. Only €6.99.",
   },
@@ -53,10 +53,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "EasyLaces",
+              name: "EasyLacesCY",
               description:
                 "The revolutionary clip-on device that makes lacing instant.",
-              url: "https://easylaces.com",
+              url: "https://easy-laces.com",
               telephone: "+35797661053",
               address: {
                 "@type": "PostalAddress",

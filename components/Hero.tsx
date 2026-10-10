@@ -102,7 +102,7 @@ export default function Hero() {
             <div className="relative h-[400px] w-[320px] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5 sm:h-[520px] sm:w-[400px]">
               <Image
                 src="/images/hero-closeup.jpg"
-                alt="EasyLaces Clip — Clip & Go, clean laces, clean style"
+                alt="EasyLacesCY Clip — Clip & Go, clean laces, clean style"
                 fill
                 className="object-cover object-top"
                 priority

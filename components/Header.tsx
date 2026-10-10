@@ -52,7 +52,7 @@ export default function Header() {
           className="flex items-center gap-2"
         >
           <Logo size={32} />
-          <span className="text-2xl font-bold text-primary">EasyLaces</span>
+          <span className="text-2xl font-bold text-primary">EasyLacesCY</span>
         </a>
 
         {/* Desktop Nav */}

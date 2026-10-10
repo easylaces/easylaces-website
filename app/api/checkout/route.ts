@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
         price_data: {
           currency: "eur",
           product_data: {
-            name: `EasyLaces Clip Bundle — ${quantity}x pack (${quantity * 4} clips)`,
+            name: `EasyLacesCY Clip Bundle — ${quantity}x pack (${quantity * 4} clips)`,
             description:
               fulfillment === "delivery"
                 ? `Color: ${colorLabel} | Delivery to ${address}, ${city} ${postalCode}, Cyprus`

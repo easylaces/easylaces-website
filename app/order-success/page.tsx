@@ -109,7 +109,7 @@ function OrderSuccessContent() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-500">{t("success.product")}</span>
-                  <span className="font-medium text-primary">EasyLaces Clip</span>
+                  <span className="font-medium text-primary">EasyLacesCY Clip</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">{t("success.color")}</span>

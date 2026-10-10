@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
 import Logo from "./Logo";
+import { LINKS } from "@/lib/links";
 
 const NAV_LINKS = [
   { key: "order", href: "#order" },
@@ -25,7 +26,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-4 flex items-center gap-2">
               <Logo size={32} />
-              <span className="text-2xl font-bold text-primary">EasyLaces</span>
+              <span className="text-2xl font-bold text-primary">EasyLacesCY</span>
             </div>
             <p className="text-base text-gray-500">
               {t("location.address")}
@@ -95,7 +96,9 @@ export default function Footer() {
             </h4>
             <div className="flex gap-3">
               <a
-                href="#"
+                href={LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-dark text-gray-500 transition-colors hover:bg-accent hover:text-white"
                 aria-label="Instagram"
               >
@@ -109,7 +112,9 @@ export default function Footer() {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href={LINKS.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-dark text-gray-500 transition-colors hover:bg-accent hover:text-white"
                 aria-label="TikTok"
               >
